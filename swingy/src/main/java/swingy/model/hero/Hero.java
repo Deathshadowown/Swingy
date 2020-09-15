@@ -13,36 +13,44 @@
 package swingy.model.hero;
 
 public abstract class Hero{
-    private String name;
+    private String heroName;
     private String charClass;
     protected int xp = 0;
-    protected int lvl = 1;
-    protected int hp = 100;
-    protected int atk = 0;
-    protected int def = 0;
+    protected int level = 1;
+    protected int health = 100;
+    protected int attack = 0;
+    protected int defence = 0;
 
-    public Hero(String name, String charClass){
-        this.name = name;
+    public Hero(String heroName, String charClass){
+        this.heroName = heroName;
         this.charClass = charClass;
+    }
+
+    public String getHeroName(){
+        return this.heroName;
+    }
+
+    public String getCharClass(){
+        return this.charClass;
     }
 
     public int getXp(){
         return this.xp;
     }
     
-    public int getLvl(){
-        return this.lvl;
+    public int getLevel(){
+        return this.level;
     }
     
-    public int getHp(){
-        return this.hp;
+    public int getHealth(){
+        return this.health;
     }
 
-    public int getAtk(){
-        return this.atk;
+    public int getAttack(){
+        return this.attack;
     }
     
-    public int getDef(){
-        return this.def;
+    public int getDefence(){
+        return this.defence;
     }
 }

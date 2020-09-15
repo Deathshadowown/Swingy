@@ -14,10 +14,10 @@ package swingy.model.hero;
 
 public class Assassin extends Hero{
 
-    public Assassin(String name, String charClass){
-        super(name, charClass);
-        this.atk = 7;
-        this.def = 4;
-        this.hp = 100;
+    public Assassin(String heroName){
+        super(heroName, "Assassin");
+        this.attack = 7;
+        this.defence = 4;
+        this.health = 100;
     }
 }
