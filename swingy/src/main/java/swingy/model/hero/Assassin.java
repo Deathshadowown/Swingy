@@ -11,3 +11,13 @@
 /* ************************************************************************** */
 
 package swingy.model.hero;
+
+public class Assassin extends Hero{
+
+    public Assassin(String name, String charClass){
+        super(name, charClass);
+        this.atk = 7;
+        this.def = 4;
+        this.hp = 100;
+    }
+}

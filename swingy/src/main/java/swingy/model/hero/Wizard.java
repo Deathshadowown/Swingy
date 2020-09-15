@@ -11,3 +11,13 @@
 /* ************************************************************************** */
 
 package swingy.model.hero;
+
+public class Wizard extends Hero{
+
+    public Wizard(String name, String charClass){
+        super(name, charClass);
+        this.atk = 10;
+        this.def = 2;
+        this.hp = 100;
+    }
+}
