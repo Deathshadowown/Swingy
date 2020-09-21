@@ -120,6 +120,14 @@ public class Console_Interface{
         System.out.println("-------------------------------------");
     }
 
+    public String displayCommand(){
+        String command = null;
+        System.out.println("input North, South, East, West");
+        System.out.print("what would you like to do: ");
+        command = scan.nextLine();
+        System.out.println();
+        return command;
+    }
     public void printMap(char map[][]){
         int i = 0;
         int j = 0;

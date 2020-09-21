@@ -56,7 +56,109 @@ public class Game{
             //TODO: handle exception
         }
         gameController.startGame(map.getMap(), map.getMapSize(), player);
-        //going to wright code here must be moved to a better spot later
+    }
+
+    public void creatingNewMap(){
+        try {
+            System.out.println("Generating Map...");
+            map.generateMap(player.getLevel());
+            System.out.println("Adding player to map");
+            map.addPlayerToMap();
+        } catch (Exception e) {
+            //TODO: handle exception
+        }
+        gameController.startGame(map.getMap(), map.getMapSize(), player);
+    }
+
+    public void commandWhereToMove(String command, char map[][]){
+            if (command.toLowerCase().equals("north")){
+                System.out.println("You choose north");
+                movingAroundMap(command, map);
+            }else if (command.toLowerCase().equals("south")){
+                System.out.println("You choose south");
+                movingAroundMap(command, map);
+            }else if (command.toLowerCase().equals("east")){
+                System.out.println("You choose east");
+                movingAroundMap(command, map);
+            }else if (command.toLowerCase().equals("west")){
+                System.out.println("You choose west");
+                movingAroundMap(command, map);
+            }
+    }
+
+    public void movingAroundMap(String command, char map[][]){
+        int[] location;
+        System.out.println(command);
+        location = getHeroPostion(map);
+        calculateMove(command, location, map);
+    }
+
+    public void calculateMove(String command, int[] location, char map[][]){
+        int xAxis = 0;
+        int yAxis = 0;
+        String postion = null;
+        xAxis = location[0];
+        yAxis = location[1];
+        try {
+        if (command.toLowerCase().equals("north")){
+                System.out.println("You choose north");
+                xAxis--;
+                System.out.println(xAxis);
+                System.out.println(yAxis);
+                map[location[0]][yAxis] = 'O';
+                map[xAxis][yAxis] = 'P';
+                
+            }else if (command.toLowerCase().equals("south")){
+                System.out.println("You choose south");
+                xAxis++;
+                System.out.println(xAxis);
+                System.out.println(yAxis);
+                map[location[0]][yAxis] = 'O';
+                map[xAxis][yAxis] = 'P';
+            }else if (command.toLowerCase().equals("east")){
+                System.out.println("You choose east");
+                yAxis++;
+                System.out.println(xAxis);
+                System.out.println(yAxis);
+                map[xAxis][location[1]] = 'O';
+                map[xAxis][yAxis] = 'P';
+            }else if (command.toLowerCase().equals("west")){
+                System.out.println("You choose west");
+                yAxis--;
+                System.out.println(xAxis);
+                System.out.println(yAxis);
+                map[xAxis][location[1]] = 'O';
+                map[xAxis][yAxis] = 'P';
+            }
+            } catch (ArrayIndexOutOfBoundsException e) {
+                //TODO: handle exception
+                // going to use scanner to ask if you want to still
+                System.out.println("You won!!");
+                // gameController.createMap();
+                System.exit(2);
+            }
+    }
+    
+    public int[] getHeroPostion(char map[][]){
+        String postion = null;
+        int[] location = new int[2];
+        while (location[0] < map.length)
+        {
+            while (location[1] < map[location[0]].length)
+            {
+                postion = String.valueOf(map[location[0]][location[1]]);
+                if (postion.equals("P"))
+                {
+                    break;
+                }
+                location[1]++;
+            }
+            if (postion.equals("P"))
+            break;
+            location[1] = 0;
+            location[0]++;
+        }
+        return location;
     }
 
     public Hero getPlayer() {
