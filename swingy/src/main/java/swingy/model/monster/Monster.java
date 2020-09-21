@@ -20,7 +20,7 @@ public class Monster{
     protected int defence;
     protected int xpGiven;
 
-    public static Monster(String monsterName, String monsterClass){
+    public Monster(String monsterName, String monsterClass){
         this.monsterName = monsterName;
         this.monsterClass = monsterClass;
     }
@@ -46,7 +46,7 @@ public class Monster{
     }
 
     public int getHp(){
-        return this.hp
+        return this.hp;
     }
 
     public int getDefence(){
@@ -54,6 +54,6 @@ public class Monster{
     }
 
     public int getXpGiven(){
-        return this.getXpGiven;
+        return this.xpGiven;
     }
 }

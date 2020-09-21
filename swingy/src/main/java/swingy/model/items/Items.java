@@ -11,3 +11,30 @@
 /* ************************************************************************** */
 
 package swingy.model.items;
+
+// public class Items{
+//     private String itemName = null;
+//     private String itemDice = null;
+//     protected int itemAttack;
+//     protected int itemDef;
+
+//     public Items(String itemName){
+//         this.itemName = itemName;
+//     }
+
+//     public String getItemName(){
+//         return this.itemName;
+//     }
+
+//     public String getItemDice(){
+//         return this.itemDice;
+//     }
+
+//     public int getItemAttack(){
+//         return this.itemAttack;
+//     }
+
+//     public int getItemDef(){
+//         return this.getItemDef;
+//     }
+// }

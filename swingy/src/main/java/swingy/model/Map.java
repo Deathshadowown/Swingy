@@ -65,6 +65,37 @@ public class Map{
 		map[(int) Math.ceil(mapSize / 2)][(int) Math.ceil(mapSize / 2)] = 'P';
     }
     public void addMonstersToMap(){
-        
+        //improve this algo to make it more random
+        int i = 0;
+        int j = 0;
+        int count = 0;
+        String postion = null;
+        int count2 = 2;
+        int counting2 = 0;
+        while (i < map.length)
+        {
+            while(j < map[i].length)
+            {
+                postion = String.valueOf(map[i][j]);
+                if (postion.equals("P"))
+                {
+                    break ;
+                    // found player
+                }
+                if (count == count2){
+                    if (counting2 == 1){
+                        count2--;
+                    }else if (count2 == 0){
+                        count2++;
+                    }
+                    map[i][j] = 'E';
+                    count = 0;
+                }
+                count++;
+                j++;
+            }
+            j = 0;
+            i++;
+        }
     }
 }

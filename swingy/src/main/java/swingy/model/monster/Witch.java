@@ -11,3 +11,14 @@
 /* ************************************************************************** */
 
 package swingy.model.monster;
+
+public class Witch extends Monster{
+
+    public Witch(String monsterName){
+        super(monsterName, "Witch");
+        this.attack = 7;
+        this.hp = 100;
+        this.defence = 6;
+        this.xpGiven = 20;
+    }
+}

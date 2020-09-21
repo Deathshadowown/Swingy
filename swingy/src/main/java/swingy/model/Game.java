@@ -13,7 +13,9 @@
 package swingy.model;
 
 import swingy.model.hero.CreateHero;
+import swingy.model.monster.CreateMonster;
 import swingy.model.hero.Hero;
+import swingy.model.monster.Monster;
 
 import swingy.controller.GameController;
 import swingy.model.Map;
@@ -23,6 +25,7 @@ import java.util.*;
 public class Game{
     private static Map map = null;
     private static Hero player = null;
+    private static Monster monster = null;
     private static GameController gameController;
     private Scanner scan = new Scanner(System.in);
 
@@ -38,6 +41,9 @@ public class Game{
         // char currentMap[][] = map.getMap();
         // map.printMap(currentMap);
     }
+    public void createMonster(String monsterName, String monsterClass){
+        monster = CreateMonster.newMonster(monsterName, monsterClass);
+    }
     
     public Hero getHero(){
         return player;
@@ -48,6 +54,8 @@ public class Game{
             map.generateMap(player.getLevel());
             System.out.println("Adding player to map");
             map.addPlayerToMap();
+            System.out.println("Adding Monsters to map");
+            map.addMonstersToMap();
             // must add enimies to map here
             // System.out.println("Displaying Map for Player");
             // char currentMap[][] = map.getMap();
@@ -65,6 +73,8 @@ public class Game{
             map.generateMap(player.getLevel());
             System.out.println("Adding player to map");
             map.addPlayerToMap();
+            System.out.println("Adding Monsters to map");
+            map.addMonstersToMap();
         } catch (Exception e) {
             System.out.println("Error: Please contract support.");
         }
