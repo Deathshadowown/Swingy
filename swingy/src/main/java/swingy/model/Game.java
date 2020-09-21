@@ -65,12 +65,8 @@ public class Game{
             map.generateMap(player.getLevel());
             System.out.println("Adding player to map");
             map.addPlayerToMap();
-            // must add enimies to map here
-            // System.out.println("Displaying Map for Player");
-            // char currentMap[][] = map.getMap();
-            // map.printMap(currentMap);
         } catch (Exception e) {
-            //TODO: handle exception
+            System.out.println("Error: Please contract support.");
         }
         gameController.startGame(map.getMap(), map.getMapSize(), player);
     }
@@ -112,7 +108,6 @@ public class Game{
                 System.out.println(yAxis);
                 map[location[0]][yAxis] = 'O';
                 map[xAxis][yAxis] = 'P';
-                
             }else if (command.toLowerCase().equals("south")){
                 System.out.println("You choose south");
                 xAxis++;
@@ -136,9 +131,6 @@ public class Game{
                 map[xAxis][yAxis] = 'P';
             }
             } catch (ArrayIndexOutOfBoundsException e) {
-                //TODO: handle exception
-                // going to use scanner to ask if you want to still
-                System.out.println("You won!!");
                 creatingNewMap();
             }
     }

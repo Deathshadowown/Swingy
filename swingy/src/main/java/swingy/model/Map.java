@@ -50,7 +50,7 @@ public class Map{
             i++;
         }
     }
-    
+
     public char[][] getMap()
     {
         return map;
@@ -64,5 +64,7 @@ public class Map{
     public void addPlayerToMap() {
 		map[(int) Math.ceil(mapSize / 2)][(int) Math.ceil(mapSize / 2)] = 'P';
     }
-    
+    public void addMonstersToMap(){
+        
+    }
 }
