@@ -60,10 +60,15 @@ public class Game{
 
     public void creatingNewMap(){
         try {
+            gameController.createNewMap();
             System.out.println("Generating Map...");
             map.generateMap(player.getLevel());
             System.out.println("Adding player to map");
             map.addPlayerToMap();
+            // must add enimies to map here
+            // System.out.println("Displaying Map for Player");
+            // char currentMap[][] = map.getMap();
+            // map.printMap(currentMap);
         } catch (Exception e) {
             //TODO: handle exception
         }
@@ -134,8 +139,7 @@ public class Game{
                 //TODO: handle exception
                 // going to use scanner to ask if you want to still
                 System.out.println("You won!!");
-                // gameController.createMap();
-                System.exit(2);
+                creatingNewMap();
             }
     }
     

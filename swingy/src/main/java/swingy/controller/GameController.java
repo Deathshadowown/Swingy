@@ -71,8 +71,14 @@ public class GameController{
         }
     }
 
-    public void createMap(){
-        game.creatingMap();
+    public static void createMap(){
+            game.creatingMap();
+    }
+
+    public static void createNewMap(){
+        console.displayWinningMessage();
+        console.displayContinuePlaying();
+        // game.creatingNewMap();
     }
     public void characterCreate(){
         String heroName = console.getHeroName();

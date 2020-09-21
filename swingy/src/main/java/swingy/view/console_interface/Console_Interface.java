@@ -128,6 +128,26 @@ public class Console_Interface{
         System.out.println();
         return command;
     }
+
+    public void displayWinningMessage(){
+        System.out.println("congratulations Hero you have made it to the end of the map,"
+        + " May you be knowen through out the whole world!!!!.");
+    }
+    public void displayContinuePlaying(){
+        String userInput = null;
+
+        while (true)
+        {
+            System.out.print("Do you wish to Continue Playing hero?: yes: or no:");
+            userInput = scan.nextLine();
+            if (userInput.toLowerCase().equals("yes")){
+                break;
+            }else if (userInput.toLowerCase().equals("no")){
+                System.out.println("Thank you for playing Hero may we see you soon.");
+                System.exit(2);
+            }
+        }
+    }
     public void printMap(char map[][]){
         int i = 0;
         int j = 0;
