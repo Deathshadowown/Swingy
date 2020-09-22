@@ -86,8 +86,16 @@ public class GameController{
         game.createCharacter(heroName, charClass);
     }
     //function was just to test in game.java
-    public void info(Hero player)
-    {
+    public void info(Hero player){
         console.displayPlayerInfo(player);
+    }
+
+    public String engageMonsterOrRun(String command){
+        command = console.displayEngageorRunMessage(command);
+        return(command);
+    }
+
+    public void failedToRun(){
+        console.displayFailedRunMessage();
     }
 }

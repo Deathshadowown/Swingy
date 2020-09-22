@@ -53,4 +53,7 @@ public abstract class Hero{
     public int getDefence(){
         return this.defence;
     }
+    public void setNewHealth(int newHealth){
+        this.health = newHealth;
+    }
 }

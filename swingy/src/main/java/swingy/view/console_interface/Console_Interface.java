@@ -129,10 +129,26 @@ public class Console_Interface{
         return command;
     }
 
+    public String displayEngageorRunMessage(String command){
+        System.out.println("You Found a Monster");
+        while(true)
+        {
+            System.out.print("Do you wish to fight or run? ");
+            command = scan.nextLine();
+            if (command.toLowerCase().equals("run")){
+                break;
+            }else if(command.toLowerCase().equals("fight")){
+                break;
+            }
+        }
+        return command;
+    }
+
     public void displayWinningMessage(){
         System.out.println("congratulations Hero you have made it to the end of the map,"
         + " May you be knowen through out the whole world!!!!.");
     }
+
     public void displayContinuePlaying(){
         String userInput = null;
 
@@ -147,6 +163,10 @@ public class Console_Interface{
                 System.exit(2);
             }
         }
+    }
+
+    public void displayFailedRunMessage(){
+        System.out.println("You failed to run away, Get ready to fight!!!");
     }
     public void printMap(char map[][]){
         int i = 0;

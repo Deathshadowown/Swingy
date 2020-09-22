@@ -21,13 +21,15 @@ import swingy.controller.GameController;
 import swingy.model.Map;
 //mayberemove
 import java.util.*;
+import java.util.Random;
 
 public class Game{
+    private Scanner scan = new Scanner(System.in);
+    private ArrayList<String> monsterList = new ArrayList<>(Arrays.asList("Dragon", "Witch", "Ogre")); // make armour as well
     private static Map map = null;
     private static Hero player = null;
     private static Monster monster = null;
     private static GameController gameController;
-    private Scanner scan = new Scanner(System.in);
 
     public Game(GameController gameController){
         Game.gameController = gameController;
@@ -108,35 +110,51 @@ public class Game{
         int xAxis = 0;
         int yAxis = 0;
         String postion = null;
+        String newCommand = null;
+        Random random = new Random();
+        int getrandom = 0;
         xAxis = location[0];
         yAxis = location[1];
         try {
         if (command.toLowerCase().equals("north")){
                 System.out.println("You choose north");
                 xAxis--;
-                System.out.println(xAxis);
-                System.out.println(yAxis);
-                map[location[0]][yAxis] = 'O';
-                map[xAxis][yAxis] = 'P';
+                postion = String.valueOf(map[xAxis][yAxis]);
+                if (postion.equals("E")){
+                    newCommand = gameController.engageMonsterOrRun(command);
+                    if (newCommand.equals("fight")){
+                        engageMonster();
+                        map[location[0]][yAxis] = 'O';
+                        map[xAxis][yAxis] = 'P';
+                    }else if (newCommand.equals("run")){
+                        getrandom = random.nextInt(100);
+                        System.out.println(getrandom);
+                        if (getrandom < 50){
+                            gameController.failedToRun();
+                            engageMonster();
+                            map[location[0]][yAxis] = 'O';
+                            map[xAxis][yAxis] = 'P';
+                        }
+                        // make message form console do later
+                        System.out.println("You got away!!.");
+                    }
+                }else{
+                    map[location[0]][yAxis] = 'O';
+                    map[xAxis][yAxis] = 'P';
+                }
             }else if (command.toLowerCase().equals("south")){
                 System.out.println("You choose south");
                 xAxis++;
-                System.out.println(xAxis);
-                System.out.println(yAxis);
                 map[location[0]][yAxis] = 'O';
                 map[xAxis][yAxis] = 'P';
             }else if (command.toLowerCase().equals("east")){
                 System.out.println("You choose east");
                 yAxis++;
-                System.out.println(xAxis);
-                System.out.println(yAxis);
                 map[xAxis][location[1]] = 'O';
                 map[xAxis][yAxis] = 'P';
             }else if (command.toLowerCase().equals("west")){
                 System.out.println("You choose west");
                 yAxis--;
-                System.out.println(xAxis);
-                System.out.println(yAxis);
                 map[xAxis][location[1]] = 'O';
                 map[xAxis][yAxis] = 'P';
             }
@@ -145,6 +163,72 @@ public class Game{
             }
     }
     
+    public void engageMonster(){
+        Random random = new Random();
+        int whoFightsFirst = 0;
+        int heroNewHealth = 0;
+        int monsterNewHealth = 0;
+        whoFightsFirst = random.nextInt(100);
+        String monsterToFight = null;
+        System.out.print("You going to fight: "); // make it go to console
+        monsterToFight = monsterList.get(random.nextInt(monsterList.size()));
+        //create monster here.
+        System.out.println(monsterToFight); // make it go to console
+        createMonster(monsterToFight, monsterToFight);
+        if (whoFightsFirst <= 50){
+            System.out.println("Player Attacks First!!");
+        }else if (whoFightsFirst >= 50){
+            System.out.println("Monster Attacks First!!");
+        }
+        while (true){
+            if (whoFightsFirst <= 50){
+                // monsteAttack = monster.getAttack();
+                // heroDefence = player.getDefence();//getAttack
+                int heroAttack = player.getAttack();
+                int monsterTotalAttack = monster.getAttack() - player.getDefence();
+                monsterNewHealth = monster.getHealth() - heroAttack;
+                monster.setNewHealth(monsterNewHealth);
+                if (monster.getHealth() <= 0){
+                    System.out.println("You have Deafeated "+monsterToFight); // add to console
+                    break;
+                }
+                heroNewHealth = player.getHealth() - monsterTotalAttack;
+                player.setNewHealth(heroNewHealth);
+                if (player.getHealth() <= 0)
+                {
+                    System.out.println("You have Died, may you rest in peace"); // add to console
+                    System.exit(2);
+                }
+            }else if (whoFightsFirst >= 50){
+                int heroAttack = player.getAttack();
+                int monsterTotalAttack = monster.getAttack() - player.getDefence();
+                heroNewHealth = player.getHealth() - monsterTotalAttack;
+                player.setNewHealth(heroNewHealth);
+                if (player.getHealth() <= 0)
+                {
+                    System.out.println("You have Died, may you rest in peace"); // add to console
+                    System.exit(2);
+                }
+                monsterNewHealth = monster.getHealth() - heroAttack;
+                monster.setNewHealth(monsterNewHealth);
+                if (monster.getHealth() <= 0){
+                    System.out.println("You have Deafeated "+monsterToFight); // add to console
+                    break;
+                }
+            }
+        }
+        // System.exit(2);
+        // random monster function
+        // switch statment for random monster spawn
+        //under here place in if statments--------------
+        // function to choose who attacks first
+        // function to check both attacks
+        // function to - hp from monster or hero
+        // function to display gameover if dead
+        // function to gain exp
+        // function to show you deafeted monster
+    }
+
     public int[] getHeroPostion(char map[][]){
         String postion = null;
         int[] location = new int[2];

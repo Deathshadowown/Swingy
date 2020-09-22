@@ -80,7 +80,6 @@ public class Map{
                 if (postion.equals("P"))
                 {
                     break ;
-                    // found player
                 }
                 if (count == count2){
                     if (counting2 == 1){

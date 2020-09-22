@@ -16,7 +16,7 @@ public class Monster{
     private String monsterName;
     private String monsterClass;
     protected int attack;
-    protected int hp;
+    protected int health;
     protected int defence;
     protected int xpGiven;
 
@@ -45,8 +45,8 @@ public class Monster{
         return this.attack;
     }
 
-    public int getHp(){
-        return this.hp;
+    public int getHealth(){
+        return this.health;
     }
 
     public int getDefence(){
@@ -55,5 +55,8 @@ public class Monster{
 
     public int getXpGiven(){
         return this.xpGiven;
+    }
+    public void setNewHealth(int newHealth){
+        this.health = newHealth;
     }
 }

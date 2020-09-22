@@ -15,9 +15,9 @@ package swingy.model.monster;
 public class Dragon extends Monster{
 
     public Dragon(String monsterName){
-        super(monsterName, "Dragon");
+        super("Dragon", "Dragon");
         this.attack = 5;
-        this.hp = 100;
+        this.health = 100;
         this.defence = 5;
         this.xpGiven = 15;
     }
