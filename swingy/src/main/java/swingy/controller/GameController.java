@@ -16,9 +16,6 @@ import swingy.view.console_interface.Console_Interface;
 import swingy.model.Game;
 import swingy.model.hero.Hero;
 
-//remove import once scanner is inside console.java
-import java.util.*;
-
 public class GameController{
 
     private static Console_Interface console = null;
@@ -56,9 +53,6 @@ public class GameController{
 
     public void startGame(char[][] map, int mapsize, Hero player)
     {
-        //put scanner and command into console.java
-        // Scanner scan = new Scanner(System.in);
-
         String command = null;
         console.instructionsToGame();
         console.displayPlayerInfo(player);
@@ -97,5 +91,10 @@ public class GameController{
 
     public void failedToRun(){
         console.displayFailedRunMessage();
+    }
+    public String itemDrops(String item){
+        String command = null;
+        command = console.itemDropInput(item);
+        return command;
     }
 }

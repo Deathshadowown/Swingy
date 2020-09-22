@@ -117,6 +117,12 @@ public class Console_Interface{
         System.out.println("Current Health: "+player.getHealth());
         System.out.println("Current Attack: "+player.getAttack());
         System.out.println("Current Defence: "+player.getDefence());
+        System.out.println("Current Weapon: "+player.getCurrentWeapon());
+        System.out.println("Current Weapon stats: "+player.getCurrentWeaponAttack());
+        System.out.println("Current Armour: "+player.getCurrentArmour());
+        System.out.println("Current Armour stats: "+player.getCurrentArmourDefence());
+        System.out.println("Current Helm: "+player.getCurrentHelm());
+        System.out.println("Current Helm stats: "+player.getCurrentHelmHealth());
         System.out.println("-------------------------------------");
     }
 
@@ -163,6 +169,24 @@ public class Console_Interface{
                 System.exit(2);
             }
         }
+    }
+
+    public String itemDropInput(String item){
+        String userInput = null;
+        System.out.println("Monster droped "+item);
+        while (true)
+        {
+            System.out.println("Would you like to take it or leave it?");
+            System.out.print("Yes or no: ");
+            userInput = scan.nextLine();
+            if (userInput.toLowerCase().equals("yes")){
+                break;
+            }
+            else if (userInput.toLowerCase().equals("no")){
+                break;
+            }
+        }
+        return userInput;
     }
 
     public void displayFailedRunMessage(){

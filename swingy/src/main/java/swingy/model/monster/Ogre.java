@@ -19,6 +19,6 @@ public class Ogre extends Monster{
         this.attack = 8;
         this.health = 100;
         this.defence = 7;
-        this.xpGiven = 25;
+        this.xpGiven = 250;
     }
 }

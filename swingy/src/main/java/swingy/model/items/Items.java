@@ -12,29 +12,45 @@
 
 package swingy.model.items;
 
-// public class Items{
-//     private String itemName = null;
-//     private String itemDice = null;
-//     protected int itemAttack;
-//     protected int itemDef;
+public class Items{
+    private String itemName = null;
+    protected int itemAttack;
+    protected int itemDefence;
+    protected int itemHealth;
 
-//     public Items(String itemName){
-//         this.itemName = itemName;
-//     }
+    public Items(String itemName){
+        this.itemName = itemName;
+    }
 
-//     public String getItemName(){
-//         return this.itemName;
-//     }
+    public String getItemName(){
+        return this.itemName;
+    }
 
-//     public String getItemDice(){
-//         return this.itemDice;
-//     }
+    public int getItemAttack(){
+        return this.itemAttack;
+    }
+    
+    public void setItemWeapon(String weaponName){
+        this.itemName = weaponName;
+    }
 
-//     public int getItemAttack(){
-//         return this.itemAttack;
-//     }
+    // public void setItemHelm(String helmName){
+    //     this.itemName = helmName;
+    // }
 
-//     public int getItemDef(){
-//         return this.getItemDef;
-//     }
-// }
+    // public void setItemArmour(String armourName){
+    //     this.itemName = armourName;
+    // }
+
+    // public void setNewHelm(String helmName){
+    //     this.itemName = helmName;
+    // }
+
+    public int getItemDefence(){
+        return this.itemDefence;
+    }
+    
+    public int getItemHealth(){
+        return this.itemHealth;
+    }
+}

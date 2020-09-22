@@ -19,6 +19,6 @@ public class Dragon extends Monster{
         this.attack = 5;
         this.health = 100;
         this.defence = 5;
-        this.xpGiven = 15;
+        this.xpGiven = 150;
     }
 }

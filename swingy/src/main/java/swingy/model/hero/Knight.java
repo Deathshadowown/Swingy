@@ -12,6 +12,10 @@
 
 package swingy.model.hero;
 
+import swingy.model.items.Weapon;
+import swingy.model.items.Armour;
+import swingy.model.items.Helm;
+
 public class Knight extends Hero{
 
     public Knight(String heroName){
@@ -19,5 +23,8 @@ public class Knight extends Hero{
         this.attack = 4;
         this.defence = 7;
         this.health = 100;
+        this.weapon = new Weapon("Default");
+        this.armour = new Armour("Default");
+        this.helm = new Helm("Default");
     }
 }

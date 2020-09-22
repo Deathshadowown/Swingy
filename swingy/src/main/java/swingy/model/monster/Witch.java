@@ -19,6 +19,6 @@ public class Witch extends Monster{
         this.attack = 7;
         this.health = 100;
         this.defence = 6;
-        this.xpGiven = 20;
+        this.xpGiven = 200;
     }
 }
