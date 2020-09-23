@@ -11,6 +11,11 @@
 /* ************************************************************************** */
 
 package swingy.model.hero;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import java.util.Scanner;
 
 public class CreateHero{
     public static Hero newHero(String heroName, String charClass){
@@ -24,5 +29,37 @@ public class CreateHero{
             default:
             return null;
         }
+    }
+    public static Hero loadHero(String heroName, String charClass){
+        try {
+            String fullSaveFile = null;
+            File saveGameFile = new File("SaveGame.txt");
+            boolean exists = saveGameFile.exists();
+            if (!exists)
+			{
+                System.out.println("Error: Missing file " + saveGameFile);
+				System.exit(2);
+			}
+            Scanner scan = new Scanner(saveGameFile);
+            while(scan.hasNextLine())
+            {
+                fullSaveFile = scan.nextLine();
+            }
+            String[] newString = fullSaveFile.split("[,]", 0);
+            charClass = newString[1];
+            switch (charClass) {
+                case "Assassin":
+                    return (new Assassin(heroName));
+                case "Knight":
+                    return (new Knight(heroName));
+                case "Wizard":
+                    return (new Wizard(heroName));
+                default:
+                return null;
+            }
+        } catch (Exception e) {
+            //TODO: handle exception
+        }
+        return null;
     }
 }

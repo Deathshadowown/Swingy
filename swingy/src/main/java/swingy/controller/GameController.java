@@ -44,10 +44,14 @@ public class GameController{
                 createMap();
                 // System.out.println("got hero");
             }else if (mainConsole == loadGame){
+                int[] playerLocation;
                 System.out.println("Will loadGame");
+                playerLocation = game.loadingGame();
+                createLoadedMap(playerLocation);
             }            
         } catch (Exception e) {
-            //TODO: handle exception
+            System.out.println(e);
+            System.out.println("ERROR: Please contact support with error above");
         }
     }
 
@@ -55,10 +59,10 @@ public class GameController{
     {
         String command = null;
         console.instructionsToGame();
-        console.displayPlayerInfo(player);
         // console.printMap(map);
         while (true)
         {
+            console.displayPlayerInfo(player);
             console.printMap(map);
             command = console.displayCommand();
             game.commandWhereToMove(command, map);
@@ -67,6 +71,10 @@ public class GameController{
 
     public static void createMap(){
             game.creatingMap();
+    }
+    
+    public static void createLoadedMap(int[] playerLocation){
+        game.LoadedPlayerMap(playerLocation);
     }
 
     public static void createNewMap(){
@@ -96,5 +104,22 @@ public class GameController{
         String command = null;
         command = console.itemDropInput(item);
         return command;
+    }
+
+    public void moveCommandDisplay(String command){
+        console.DisplayMovedMessage(command);
+    }
+    public void monsterEngageing(String monsterToFight, int deadOrAlive){
+        if (deadOrAlive == 1)
+        console.monsterGoingToFight(monsterToFight);
+        else if (deadOrAlive == 0)
+        console.monstDeafeatedMessage(monsterToFight);
+    }
+
+    public void attackFirstPlayerMonster(int playerOrMonster){
+        console.whoAttacksFirstMessage(playerOrMonster);
+    }
+    public void herosDeath(){
+        console.herosDeathMessage();
     }
 }

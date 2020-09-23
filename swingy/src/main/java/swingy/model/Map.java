@@ -64,6 +64,11 @@ public class Map{
     public void addPlayerToMap() {
 		map[(int) Math.ceil(mapSize / 2)][(int) Math.ceil(mapSize / 2)] = 'P';
     }
+
+    public void addLoadedPlayerToMap(int[] playerLocation){
+        map[playerLocation[0]][playerLocation[1]] = 'P';
+    }
+
     public void addMonstersToMap(){
         //improve this algo to make it more random
         int i = 0;

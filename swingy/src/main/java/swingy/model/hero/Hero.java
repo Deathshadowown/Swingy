@@ -17,6 +17,11 @@ import swingy.model.items.Weapon;
 import swingy.model.items.Helm;
 import swingy.model.items.Armour;
 
+import java.io.File;
+import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public abstract class Hero{
     private String heroName;
     private String charClass;
@@ -59,7 +64,7 @@ public abstract class Hero{
     }
 
     public int getCurrentHelmHealth(){
-        return this.weapon.getItemHealth();
+        return this.helm.getItemHealth();
     }
 
     // public void setNewHelm(String newHelm){
@@ -70,7 +75,7 @@ public abstract class Hero{
     }
 
     public int getCurrentArmourDefence(){
-        return this.weapon.getItemDefence();
+        return this.armour.getItemDefence();
     }
 
     // public void setNewArmour(String newArmour){
@@ -136,32 +141,32 @@ public abstract class Hero{
             this.level++;
             this.xp = leftOver;
             System.out.println("You have levelUp "+this.level);
-            this.health = 100;
+            this.health = 100 + helm.getItemHealth();
         }else if (this.xp >= 2450){
             leftOver = this.xp - this.levelUpexpIncrease;
             this.level++;
             this.xp = leftOver;
             System.out.println("You have levelUp "+this.level);
-            this.health = 100;
+            this.health = 100 + helm.getItemHealth();
         }else if (this.xp >= 4800){
             leftOver = this.xp - this.levelUpexpIncrease;
             this.level++;
             this.xp = leftOver;
             System.out.println("You have levelUp "+this.level);
-            this.health = 100;
+            this.health = 100 + helm.getItemHealth();
         }else if (this.xp >= 8050){
             leftOver = this.xp - this.levelUpexpIncrease;
             this.level++;
             this.xp = leftOver;
             System.out.println("You have levelUp "+this.level);
-            this.health = 100;
+            this.health = 100 + helm.getItemHealth();
         }else if (this.xp >= 12200){
             leftOver = this.xp - this.levelUpexpIncrease;
             this.level++;
             this.xp = leftOver;
             System.out.println("You have levelUp "+this.level);
             this.levelUpexpIncrease = 12200;
-            this.health = 100;
+            this.health = 100 + helm.getItemHealth();
         }
     }
 
@@ -169,9 +174,6 @@ public abstract class Hero{
         this.attack = this.attack - weapon.getItemAttack();
         this.weapon = new Weapon(newAttack);
         this.attack = this.attack + weapon.getItemAttack();
-        System.out.println("new"+this.attack);
-        System.out.println(weapon.getItemName());
-        System.out.println(weapon.getItemAttack());
     }
 
     public void setHealthWithHelm(String newHealth){
@@ -190,5 +192,90 @@ public abstract class Hero{
         this.defence = this.defence - armour.getItemDefence();
         this.armour = new Armour(newDefence);
         this.defence = this.defence + armour.getItemDefence();
+    }
+
+    public void saveGame(int mapLocation[]){
+        try {
+            File saveFile = new File("saveGame.txt");
+            if (saveFile.createNewFile()){
+                FileWriter myWriter = new FileWriter("saveGame.txt");
+                System.out.println("File created: "+saveFile.getName());
+                myWriter.write(this.heroName+",");
+                myWriter.write(this.charClass+",");
+                myWriter.write(weapon.getItemName()+",");
+                myWriter.write(helm.getItemName()+",");
+                myWriter.write(armour.getItemName()+",");
+                myWriter.write(this.xp+",");
+                myWriter.write(this.level+",");
+                myWriter.write(this.health+",");
+                myWriter.write(this.attack+",");
+                myWriter.write(this.defence+",");
+                myWriter.write(this.levelUpexpIncrease+",");
+                myWriter.write(mapLocation[0]+",");
+                myWriter.write(mapLocation[1]+",");
+                myWriter.close();
+            }else{
+                System.out.println("File already exists.");
+                System.out.println("Updating");
+                FileWriter myWriter = new FileWriter("saveGame.txt");
+                myWriter.write(this.heroName+",");
+                myWriter.write(this.charClass+",");
+                myWriter.write(weapon.getItemName()+",");
+                myWriter.write(helm.getItemName()+",");
+                myWriter.write(armour.getItemName()+",");
+                myWriter.write(this.xp+",");
+                myWriter.write(this.level+",");
+                myWriter.write(this.health+",");
+                myWriter.write(this.attack+",");
+                myWriter.write(this.defence+",");
+                myWriter.write(this.levelUpexpIncrease+",");
+                myWriter.write(mapLocation[0]+",");
+                myWriter.write(mapLocation[1]+",");
+                myWriter.close();
+            }
+            
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+          } catch (Exception e) {
+            System.out.println("ERROR: Something is wrong");
+        }
+    }
+
+    public int[] loadGame(){
+        int[] mapLocation = new int[2];
+        try {
+            String fullSaveFile = null;
+            File saveGameFile = new File("SaveGame.txt");
+            boolean exists = saveGameFile.exists();
+            if (!exists)
+			{
+                System.out.println("Error: Missing file " + saveGameFile);
+				System.exit(2);
+			}
+            Scanner scan = new Scanner(saveGameFile);
+            while(scan.hasNextLine())
+            {
+                fullSaveFile = scan.nextLine();
+            }
+            String[] newString = fullSaveFile.split("[,]", 0);
+            this.heroName = newString[0];
+            this.charClass = newString[1];
+            this.weapon = new Weapon(newString[2]);
+            this.helm = new Helm(newString[3]);
+            this.armour = new Armour(newString[4]);
+            this.xp = Integer.parseInt(newString[5]);
+            this.level = Integer.parseInt(newString[6]);
+            this.health = Integer.parseInt(newString[7]);
+            this.attack = Integer.parseInt(newString[8]);
+            this.defence = Integer.parseInt(newString[9]);
+            this.levelUpexpIncrease = Integer.parseInt(newString[10]);
+            mapLocation[0] = Integer.parseInt(newString[11]);
+            mapLocation[1] = Integer.parseInt(newString[12]);
+            return mapLocation;
+        } catch (Exception e) {
+            System.out.println("ERROR: Something is wrong");
+            //TODO: handle exception
+        }
+        return null;
     }
 }

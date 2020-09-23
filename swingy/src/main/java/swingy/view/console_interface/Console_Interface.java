@@ -13,8 +13,8 @@
 package swingy.view.console_interface;
 
 import swingy.controller.GameController;
-import java.util.*;
 import swingy.model.hero.Hero;
+import java.util.*;
 
 public class Console_Interface{
     
@@ -118,17 +118,18 @@ public class Console_Interface{
         System.out.println("Current Attack: "+player.getAttack());
         System.out.println("Current Defence: "+player.getDefence());
         System.out.println("Current Weapon: "+player.getCurrentWeapon());
-        System.out.println("Current Weapon stats: "+player.getCurrentWeaponAttack());
+        System.out.println("Current Weapon stats: "+player.getCurrentWeaponAttack()+" Attack");
         System.out.println("Current Armour: "+player.getCurrentArmour());
-        System.out.println("Current Armour stats: "+player.getCurrentArmourDefence());
+        System.out.println("Current Armour stats: "+player.getCurrentArmourDefence()+" Defence");
         System.out.println("Current Helm: "+player.getCurrentHelm());
-        System.out.println("Current Helm stats: "+player.getCurrentHelmHealth());
+        System.out.println("Current Helm stats: "+player.getCurrentHelmHealth()+" Health");
         System.out.println("-------------------------------------");
     }
 
     public String displayCommand(){
         String command = null;
-        System.out.println("input North, South, East, West");
+        System.out.println("input save to save game or quit to quit game.");
+        System.out.println("input North, South, East, West to move around map.");
         System.out.print("what would you like to do: ");
         command = scan.nextLine();
         System.out.println();
@@ -191,6 +192,38 @@ public class Console_Interface{
 
     public void displayFailedRunMessage(){
         System.out.println("You failed to run away, Get ready to fight!!!");
+    }
+
+    public void DisplayMovedMessage(String command)
+    {
+        if (command.toLowerCase().equals("north")){
+            System.out.println("You Move North");
+        }else if (command.toLowerCase().equals("south")){
+            System.out.println("You Move South");
+        }else if (command.toLowerCase().equals("east")){
+            System.out.println("You Move East");
+        }else if (command.toLowerCase().equals("west")){
+            System.out.println("You Move west");
+        }
+    }
+
+    public void monsterGoingToFight(String monsterToFight){
+        System.out.println("You going to fight: "+monsterToFight);
+    }
+
+    public void monstDeafeatedMessage(String monsterDeath){
+        System.out.println("You have Deafeated "+monsterDeath);
+    }
+
+    public void whoAttacksFirstMessage(int playerOrMonster){
+        if (playerOrMonster == 0)
+        System.out.println("Player Attacks First!!");
+        else if (playerOrMonster == 1)
+        System.out.println("Monster Attacks First!!");
+    }
+    public void herosDeathMessage(){
+        System.out.println("You have Died, may you rest in peace");
+        System.exit(2);
     }
     public void printMap(char map[][]){
         int i = 0;

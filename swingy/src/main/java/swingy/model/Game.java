@@ -21,12 +21,11 @@ import swingy.controller.GameController;
 import swingy.model.Map;
 //mayberemove
 import java.util.*;
-import java.util.Random;
 
 public class Game{
     private Scanner scan = new Scanner(System.in);
     private Random random = new Random();
-    private ArrayList<String> monsterList = new ArrayList<>(Arrays.asList("Dragon", "Witch", "Ogre")); // make armour as well
+    private ArrayList<String> monsterList = new ArrayList<>(Arrays.asList("Dragon", "Witch", "Ogre"));
     private ArrayList<String> weaponList = new ArrayList<>(Arrays.asList("Bronze sword", "Iron Sword", "Silver Sword", "Dragon Sword"));
     private ArrayList<String> helmList = new ArrayList<>(Arrays.asList("Bronze Helm", "Iron Helm", "Silver Helm", "Dragon Helm"));
     private ArrayList<String> armourList = new ArrayList<>(Arrays.asList("Bronze Armour", "Iron Armour", "Silver Armour", "Dragon Armour"));
@@ -50,7 +49,14 @@ public class Game{
     public void createMonster(String monsterName, String monsterClass){
         monster = CreateMonster.newMonster(monsterName, monsterClass);
     }
-    
+
+    public int[] loadingGame(){
+        int[] mapLocation;
+        player = CreateHero.loadHero("noName", "noName");
+        mapLocation = player.loadGame();
+        return mapLocation;
+    }
+
     public Hero getHero(){
         return player;
     }
@@ -62,6 +68,20 @@ public class Game{
             map.addPlayerToMap();
             System.out.println("Adding Monsters to map");
             map.addMonstersToMap();
+        } catch (Exception e) {
+            System.out.println("Error: Please contract support.");
+        }
+        gameController.startGame(map.getMap(), map.getMapSize(), player);
+    }
+
+    public void LoadedPlayerMap(int[] playerLocation){
+        try {
+            System.out.println("Generating Map...");
+            map.generateMap(player.getLevel());
+            System.out.println("Adding Monsters to map");
+            map.addMonstersToMap();
+            System.out.println("Adding player to map");
+            map.addLoadedPlayerToMap(playerLocation);
         } catch (Exception e) {
             System.out.println("Error: Please contract support.");
         }
@@ -85,17 +105,23 @@ public class Game{
 
     public void commandWhereToMove(String command, char map[][]){
             if (command.toLowerCase().equals("north")){
-                System.out.println("You choose north");
+                // System.out.println("You choose north");
                 movingAroundMap(command, map);
             }else if (command.toLowerCase().equals("south")){
-                System.out.println("You choose south");
+                // System.out.println("You choose south");
                 movingAroundMap(command, map);
             }else if (command.toLowerCase().equals("east")){
-                System.out.println("You choose east");
+                // System.out.println("You choose east");
                 movingAroundMap(command, map);
             }else if (command.toLowerCase().equals("west")){
-                System.out.println("You choose west");
+                // System.out.println("You choose west");
                 movingAroundMap(command, map);
+            }else if (command.toLowerCase().equals("save")){
+                int[] location;
+                location = getHeroPostion(map);
+                player.saveGame(location);
+            }else if (command.toLowerCase().equals("quit")){
+                System.exit(2);
             }
     }
 
@@ -117,7 +143,7 @@ public class Game{
         yAxis = location[1];
         try {
         if (command.toLowerCase().equals("north")){
-                System.out.println("You choose north");
+                gameController.moveCommandDisplay(command);
                 xAxis--;
                 postion = String.valueOf(map[xAxis][yAxis]);
                 if (postion.equals("E")){
@@ -143,7 +169,7 @@ public class Game{
                     map[xAxis][yAxis] = 'P';
                 }
             }else if (command.toLowerCase().equals("south")){
-                System.out.println("You choose south");
+                gameController.moveCommandDisplay(command);
                 xAxis++;
                 postion = String.valueOf(map[xAxis][yAxis]);
                 if (postion.equals("E")){
@@ -169,7 +195,7 @@ public class Game{
                     map[xAxis][yAxis] = 'P';
                 }
             }else if (command.toLowerCase().equals("east")){
-                System.out.println("You choose east");
+                gameController.moveCommandDisplay(command);
                 yAxis++;
                 postion = String.valueOf(map[xAxis][yAxis]);
                 if (postion.equals("E")){
@@ -195,7 +221,7 @@ public class Game{
                     map[xAxis][yAxis] = 'P';
                 }
             }else if (command.toLowerCase().equals("west")){
-                System.out.println("You choose west");
+                gameController.moveCommandDisplay(command);
                 yAxis--;
                 postion = String.valueOf(map[xAxis][yAxis]);
                 if (postion.equals("E")){
@@ -232,15 +258,14 @@ public class Game{
         int monsterNewHealth = 0;
         whoFightsFirst = random.nextInt(100);
         String monsterToFight = null;
-        System.out.print("You going to fight: "); // make it go to console
         monsterToFight = monsterList.get(random.nextInt(monsterList.size()));
         //create monster here.
-        System.out.println(monsterToFight); // make it go to console
+        gameController.monsterEngageing(monsterToFight, 0);
         createMonster(monsterToFight, monsterToFight);
         if (whoFightsFirst <= 50){
-            System.out.println("Player Attacks First!!");
+            gameController.attackFirstPlayerMonster(0);
         }else if (whoFightsFirst >= 50){
-            System.out.println("Monster Attacks First!!");
+            gameController.attackFirstPlayerMonster(1);
         }
         while (true){
             if (whoFightsFirst <= 50){
@@ -249,22 +274,19 @@ public class Game{
                 monsterNewHealth = monster.getHealth() - heroAttack;
                 monster.setNewHealth(monsterNewHealth);
                 if (monster.getHealth() <= 0){
-                    System.out.println("You have Deafeated "+monsterToFight); // add to console
+                    gameController.monsterEngageing(monsterToFight, 1);
+                    // System.out.println("You have Deafeated "+monsterToFight); // add to console
                     System.out.println("You have earned "+monster.getXpGiven()+" Exp"); // add to console
                     player.setXp(monster.getXpGiven());
                     player.expPerLevel();
                     itemDrop();
-                    // System.out.println(player.getAttack());
-                    // player.setAttackWithWeapon("Dragon Sword");
-                    // System.out.println(player.getAttack());
                     break;
                 }
                 heroNewHealth = player.getHealth() - monsterTotalAttack;
                 player.setNewHealth(heroNewHealth);
                 if (player.getHealth() <= 0)
                 {
-                    System.out.println("You have Died, may you rest in peace"); // add to console
-                    System.exit(2);
+                    gameController.herosDeath();
                 }
             }else if (whoFightsFirst >= 50){
                 int heroAttack = player.getAttack();
@@ -273,60 +295,43 @@ public class Game{
                 player.setNewHealth(heroNewHealth);
                 if (player.getHealth() <= 0)
                 {
-                    System.out.println("You have Died, may you rest in peace"); // add to console
-                    System.exit(2);
+                    gameController.herosDeath();
                 }
                 monsterNewHealth = monster.getHealth() - heroAttack;
                 monster.setNewHealth(monsterNewHealth);
                 if (monster.getHealth() <= 0){
-                    System.out.println("You have Deafeated "+monsterToFight); // add to console
+                    gameController.monsterEngageing(monsterToFight, 1);
                     System.out.println("You have earned "+monster.getXpGiven()+" Exp"); // add to console
                     player.setXp(monster.getXpGiven());
                     player.expPerLevel();
                     itemDrop();
-                    // System.out.println(player.getAttack());
-                    // player.setAttackWithWeapon("Dragon Sword");
-                    // System.out.println(player.getAttack());
                     break;
                 }
             }
         }
-        // System.exit(2);
-        // random monster function
-        // switch statment for random monster spawn
-        //under here place in if statments--------------
-        // function to choose who attacks first
-        // function to check both attacks
-        // function to - hp from monster or hero
-        // function to display gameover if dead
-        // function to gain exp
-        // function to show you deafeted monster
     }
 
     public void itemDrop(){
         int itemDrop = 0;
         String newCommand = null;
-        itemDrop = random.nextInt(3);
+        itemDrop = random.nextInt(6);
         if(itemDrop == 0){
             String WeaponDrop = weaponList.get(random.nextInt(weaponList.size()));
             newCommand = gameController.itemDrops(WeaponDrop);
             if (newCommand.equals("yes")){
                 player.setAttackWithWeapon(WeaponDrop);
-                System.out.println(player.getAttack());
             }
         }else if (itemDrop == 1){
             String armourDrop = armourList.get(random.nextInt(armourList.size()));
             newCommand = gameController.itemDrops(armourDrop);
             if (newCommand.equals("yes")){
                 player.setDefenceWithArmour(armourDrop);
-                System.out.println(player.getDefence());
             }
         }else if (itemDrop == 2){
             String helmDrop = helmList.get(random.nextInt(helmList.size()));
             newCommand = gameController.itemDrops(helmDrop);
             if (newCommand.equals("yes")){
                 player.setHealthWithHelm(helmDrop);
-                System.out.println(player.getHealth());
             }
         }
     }
