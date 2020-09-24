@@ -49,7 +49,6 @@ public class Game{
                 gameController.characterCreate();
                 
             } catch (Exception e) {
-                //TODO: handle exception
                 System.out.println("ERROR: Please contact support");
             }
 		}
@@ -68,7 +67,6 @@ public class Game{
                 gameController.characterCreate();
                 
             } catch (Exception e) {
-                //TODO: handle exception
                 System.out.println("ERROR: Please contact support");
             }
 		}
@@ -123,16 +121,12 @@ public class Game{
 
     public void commandWhereToMove(String command, char map[][]){
             if (command.toLowerCase().equals("north")){
-                // System.out.println("You choose north");
                 movingAroundMap(command, map);
             }else if (command.toLowerCase().equals("south")){
-                // System.out.println("You choose south");
                 movingAroundMap(command, map);
             }else if (command.toLowerCase().equals("east")){
-                // System.out.println("You choose east");
                 movingAroundMap(command, map);
             }else if (command.toLowerCase().equals("west")){
-                // System.out.println("You choose west");
                 movingAroundMap(command, map);
             }else if (command.toLowerCase().equals("save")){
                 int[] location;
@@ -269,7 +263,6 @@ public class Game{
         whoFightsFirst = random.nextInt(100);
         String monsterToFight = null;
         monsterToFight = monsterList.get(random.nextInt(monsterList.size()));
-        //create monster here.
         gameController.monsterEngageing(monsterToFight, 1);
         createMonster(monsterToFight, monsterToFight);
         if (whoFightsFirst <= 50){
@@ -285,8 +278,7 @@ public class Game{
                 monster.setNewHealth(monsterNewHealth);
                 if (monster.getHealth() <= 0){
                     gameController.monsterEngageing(monsterToFight, 0);
-                    // System.out.println("You have Deafeated "+monsterToFight); // add to console
-                    System.out.println("You have earned "+monster.getXpGiven()+" Exp"); // add to console
+                    System.out.println("You have earned "+monster.getXpGiven()+" Exp");
                     player.setXp(monster.getXpGiven());
                     player.expPerLevel();
                     itemDrop();
@@ -311,7 +303,7 @@ public class Game{
                 monster.setNewHealth(monsterNewHealth);
                 if (monster.getHealth() <= 0){
                     gameController.monsterEngageing(monsterToFight, 0);
-                    System.out.println("You have earned "+monster.getXpGiven()+" Exp"); // add to console
+                    System.out.println("You have earned "+monster.getXpGiven()+" Exp");
                     player.setXp(monster.getXpGiven());
                     player.expPerLevel();
                     itemDrop();

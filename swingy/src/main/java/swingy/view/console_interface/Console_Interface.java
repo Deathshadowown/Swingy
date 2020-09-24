@@ -38,7 +38,6 @@ public class Console_Interface{
         byte gameMode = 0;
         try {
             while(true){
-            // Scanner scan = new Scanner(System.in);
             System.out.print("Please Select: ");
             gameMode = scan.nextByte();
             if (gameMode == newGame){
@@ -54,7 +53,6 @@ public class Console_Interface{
                 continue;
             }
         }
-        //initializingGame in gamecontroller
         gameController.initializingGame(gameMode);
         }catch (InputMismatchException notInt){
             System.out.println("ERROR: Please enter a valid number: 1,2");
@@ -69,7 +67,6 @@ public class Console_Interface{
             System.out.println("You got away!!.");
             TimeUnit.SECONDS.sleep(1);
         } catch (Exception e) {
-            //TODO: handle exception
             System.out.println("ERROR: please contact support");
         }
     }
@@ -91,8 +88,6 @@ public class Console_Interface{
 
     public String getCharClass(){
         clearScreen();
-        // Scanner scan = new Scanner(System.in);
-        // byte charClass = 0;
         try {
             System.out.println("Classes you can Choose are as follows");
             System.out.println("1|Assassin 2|Knight 3|Wizard");

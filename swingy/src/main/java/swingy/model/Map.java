@@ -70,7 +70,6 @@ public class Map{
     }
 
     public void addMonstersToMap(){
-        //improve this algo to make it more random
         int i = 0;
         int j = 0;
         int count = 0;

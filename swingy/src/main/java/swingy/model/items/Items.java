@@ -34,18 +34,6 @@ public class Items{
         this.itemName = weaponName;
     }
 
-    // public void setItemHelm(String helmName){
-    //     this.itemName = helmName;
-    // }
-
-    // public void setItemArmour(String armourName){
-    //     this.itemName = armourName;
-    // }
-
-    // public void setNewHelm(String helmName){
-    //     this.itemName = helmName;
-    // }
-
     public int getItemDefence(){
         return this.itemDefence;
     }

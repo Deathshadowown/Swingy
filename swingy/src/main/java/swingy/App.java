@@ -6,7 +6,7 @@
 /*   By: svan-nie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 15:28:14 by svan-nie          #+#    #+#             */
-/*   Updated: 2020/09/17 17:58:09 by svan-nie         ###   ########.fr       */
+/*   Updated: 2020/09/24 16:24:02 by svan-nie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,8 @@ import swingy.controller.GameController;
 
 public class App 
 {
-    // static CreateHero newHero = new CreateHero();
     public static void main( String[] args )
     {
-        // use to make a hero
-        // Hero player = null;
-        // player = CreateHero.newHero("shadow", "Assassin");
-        // System.out.println(player.getAttack());
-        // System.out.println(player.getHeroName());
-        // System.out.println(player.getCharClass());
-        // System.out.println(player.getHealth());
         byte interfaces = 0;
         try {            
             if (args.length > 0 && args.length < 2) {

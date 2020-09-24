@@ -42,7 +42,6 @@ public class GameController{
                 System.out.println("newGame must create hero: ");
                 characterCreate();
                 createMap();
-                // System.out.println("got hero");
             }else if (mainConsole == loadGame){
                 int[] playerLocation;
                 System.out.println("Will loadGame");
@@ -59,7 +58,6 @@ public class GameController{
     {
         String command = null;
         console.instructionsToGame();
-        // console.printMap(map);
         while (true)
         {
             console.displayPlayerInfo(player);
@@ -80,14 +78,12 @@ public class GameController{
     public static void createNewMap(){
         console.displayWinningMessage();
         console.displayContinuePlaying();
-        // game.creatingNewMap();
     }
     public void characterCreate(){
         String heroName = console.getHeroName();
         String charClass = console.getCharClass();
         game.createCharacter(heroName, charClass);
     }
-    //function was just to test in game.java
     public void info(Hero player){
         console.displayPlayerInfo(player);
     }

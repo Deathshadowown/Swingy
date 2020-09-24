@@ -88,9 +88,6 @@ public abstract class Hero{
         return this.helm.getItemHealth();
     }
 
-    // public void setNewHelm(String newHelm){
-    //     this.helm.setItemHelm(newHelm);
-    // }
     public String getCurrentArmour(){
         return this.armour.getItemName();
     }
@@ -98,10 +95,6 @@ public abstract class Hero{
     public int getCurrentArmourDefence(){
         return this.armour.getItemDefence();
     }
-
-    // public void setNewArmour(String newArmour){
-    //     this.armour.setItemArmour(newArmour);
-    // }
 
     public int getXp(){
         return this.xp;
@@ -136,27 +129,7 @@ public abstract class Hero{
 
     public void expPerLevel(){
         int leftOver = 0;
-        //level 1: 1000 level 2: 2450 level 3: 4800 level 4: 8050 level 5: 12200
-        //1,450
 
-        // 1,450
-        // 2,350
-        // 3,250
-        // 4,150
-        // if (this.xp >= this.levelUpexpIncrease){
-        //     if (this.xp > this.levelUpexpIncrease){
-        //         leftOver = this.xp - this.levelUpexpIncrease;
-        //         this.level++;
-        //         this.xp = leftOver;
-        //         System.out.println("You have levelUp "+this.level);
-        //         this.levelUpexpIncrease = this.levelUpexpIncrease ;
-        //     }else{
-        //         this.level++;
-        //         this.xp = 0;
-        //         System.out.println("You have levelUp "+this.level);
-        //         this.levelUpexpIncrease = this.levelUpexpIncrease + 10;
-        //     }
-        // }
         if (this.xp >= 1000){
             leftOver = this.xp - this.levelUpexpIncrease;
             this.level++;
@@ -295,7 +268,6 @@ public abstract class Hero{
             return mapLocation;
         } catch (Exception e) {
             System.out.println("ERROR: Something is wrong");
-            //TODO: handle exception
         }
         return null;
     }
