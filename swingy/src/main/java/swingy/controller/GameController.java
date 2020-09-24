@@ -115,6 +115,9 @@ public class GameController{
         else if (deadOrAlive == 0)
         console.monstDeafeatedMessage(monsterToFight);
     }
+    public void escaped(){
+        console.escapedMessage();
+    }
 
     public void attackFirstPlayerMonster(int playerOrMonster){
         console.whoAttacksFirstMessage(playerOrMonster);

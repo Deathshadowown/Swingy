@@ -154,15 +154,13 @@ public class Game{
                         map[xAxis][yAxis] = 'P';
                     }else if (newCommand.equals("run")){
                         getrandom = random.nextInt(100);
-                        System.out.println(getrandom);
                         if (getrandom < 50){
                             gameController.failedToRun();
                             engageMonster();
                             map[location[0]][yAxis] = 'O';
                             map[xAxis][yAxis] = 'P';
-                        }
-                        // make message form console do later
-                        System.out.println("You got away!!.");
+                        }else
+                        gameController.escaped();
                     }
                 }else{
                     map[location[0]][yAxis] = 'O';
@@ -180,15 +178,13 @@ public class Game{
                         map[xAxis][yAxis] = 'P';
                     }else if (newCommand.equals("run")){
                         getrandom = random.nextInt(100);
-                        System.out.println(getrandom);
                         if (getrandom < 50){
                             gameController.failedToRun();
                             engageMonster();
                             map[location[0]][yAxis] = 'O';
                             map[xAxis][yAxis] = 'P';
-                        }
-                        // make message form console do later
-                        System.out.println("You got away!!.");
+                        }else
+                        gameController.escaped();
                     }
                 }else{
                     map[location[0]][yAxis] = 'O';
@@ -206,15 +202,13 @@ public class Game{
                         map[xAxis][yAxis] = 'P';
                     }else if (newCommand.equals("run")){
                         getrandom = random.nextInt(100);
-                        System.out.println(getrandom);
                         if (getrandom < 50){
                             gameController.failedToRun();
                             engageMonster();
                             map[xAxis][location[1]] = 'O';
                             map[xAxis][yAxis] = 'P';
-                        }
-                        // make message form console do later
-                        System.out.println("You got away!!.");
+                        }else
+                        gameController.escaped();
                     }
                 }else{
                     map[xAxis][location[1]] = 'O';
@@ -232,15 +226,13 @@ public class Game{
                         map[xAxis][yAxis] = 'P';
                     }else if (newCommand.equals("run")){
                         getrandom = random.nextInt(100);
-                        System.out.println(getrandom);
                         if (getrandom < 50){
                             gameController.failedToRun();
                             engageMonster();
                             map[xAxis][location[1]] = 'O';
                             map[xAxis][yAxis] = 'P';
-                        }
-                        // make message form console do later
-                        System.out.println("You got away!!.");
+                        }else
+                        gameController.escaped();
                     }
                 }else{
                     map[xAxis][location[1]] = 'O';
@@ -260,7 +252,7 @@ public class Game{
         String monsterToFight = null;
         monsterToFight = monsterList.get(random.nextInt(monsterList.size()));
         //create monster here.
-        gameController.monsterEngageing(monsterToFight, 0);
+        gameController.monsterEngageing(monsterToFight, 1);
         createMonster(monsterToFight, monsterToFight);
         if (whoFightsFirst <= 50){
             gameController.attackFirstPlayerMonster(0);
@@ -274,7 +266,7 @@ public class Game{
                 monsterNewHealth = monster.getHealth() - heroAttack;
                 monster.setNewHealth(monsterNewHealth);
                 if (monster.getHealth() <= 0){
-                    gameController.monsterEngageing(monsterToFight, 1);
+                    gameController.monsterEngageing(monsterToFight, 0);
                     // System.out.println("You have Deafeated "+monsterToFight); // add to console
                     System.out.println("You have earned "+monster.getXpGiven()+" Exp"); // add to console
                     player.setXp(monster.getXpGiven());
@@ -300,7 +292,7 @@ public class Game{
                 monsterNewHealth = monster.getHealth() - heroAttack;
                 monster.setNewHealth(monsterNewHealth);
                 if (monster.getHealth() <= 0){
-                    gameController.monsterEngageing(monsterToFight, 1);
+                    gameController.monsterEngageing(monsterToFight, 0);
                     System.out.println("You have earned "+monster.getXpGiven()+" Exp"); // add to console
                     player.setXp(monster.getXpGiven());
                     player.expPerLevel();

@@ -15,6 +15,7 @@ package swingy.view.console_interface;
 import swingy.controller.GameController;
 import swingy.model.hero.Hero;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 public class Console_Interface{
     
@@ -60,6 +61,16 @@ public class Console_Interface{
         } catch (Exception e) {
             System.out.println(e);
             System.out.println("ERROR: unknown error");
+        }
+    }
+
+    public void escapedMessage(){
+        try {
+            System.out.println("You got away!!.");
+            TimeUnit.SECONDS.sleep(1);
+        } catch (Exception e) {
+            //TODO: handle exception
+            System.out.println("ERROR: please contact support");
         }
     }
 
@@ -191,7 +202,12 @@ public class Console_Interface{
     }
 
     public void displayFailedRunMessage(){
-        System.out.println("You failed to run away, Get ready to fight!!!");
+        try {
+            System.out.println("You failed to run away, Get ready to fight!!!");
+            TimeUnit.SECONDS.sleep(1);
+        } catch (Exception e) {
+            System.out.println("ERROR: something is wrong");
+        }
     }
 
     public void DisplayMovedMessage(String command)
