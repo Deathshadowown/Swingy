@@ -15,12 +15,14 @@ package swingy.model;
 import swingy.model.hero.CreateHero;
 import swingy.model.monster.CreateMonster;
 import swingy.model.hero.Hero;
+import swingy.model.hero.HeroCheck;
 import swingy.model.monster.Monster;
 
 import swingy.controller.GameController;
 import swingy.model.Map;
 //mayberemove
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 public class Game{
     private Scanner scan = new Scanner(System.in);
@@ -41,10 +43,16 @@ public class Game{
 
     public void createCharacter(String heroName, String charClass){
         player = CreateHero.newHero(heroName, charClass);
-        // gameController.info(player);
-        // map.generateMap(player.getLevel());
-        // char currentMap[][] = map.getMap();
-        // map.printMap(currentMap);
+        if (HeroCheck.nameCheck(player)) {
+            try {
+                TimeUnit.SECONDS.sleep(1);
+                gameController.characterCreate();
+                
+            } catch (Exception e) {
+                //TODO: handle exception
+                System.out.println("ERROR: Please contact support");
+            }
+		}
     }
     public void createMonster(String monsterName, String monsterClass){
         monster = CreateMonster.newMonster(monsterName, monsterClass);
@@ -54,6 +62,16 @@ public class Game{
         int[] mapLocation;
         player = CreateHero.loadHero("noName", "noName");
         mapLocation = player.loadGame();
+        if (HeroCheck.nameCheck(player)) {
+            try {
+                TimeUnit.SECONDS.sleep(1);
+                gameController.characterCreate();
+                
+            } catch (Exception e) {
+                //TODO: handle exception
+                System.out.println("ERROR: Please contact support");
+            }
+		}
         return mapLocation;
     }
 

@@ -22,16 +22,37 @@ import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import javax.validation.constraints.AssertFalse;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 public abstract class Hero{
+    @NotBlank(message = "Name is Mandatory")
+	@NotNull(message = "Name can't be null")
+	@Size(min = 2, max = 10, message = "Name must be between {min} and {max}")
+	@Pattern(regexp = "^[a-zA-Z0-9]*$", message = "Name must be Alphanumeric")
     private String heroName;
+    @NotNull (message = "Hero class can't be null")
     private String charClass;
+    @NotNull (message = "Weapon can't be null")
     protected Weapon weapon;
+    @NotNull (message = "Helm can't be null")
     protected Helm helm;
+    @NotNull (message = "Armour can't be null")
     protected Armour armour;
+    @Min(value = 0, message = "Xp must be more than 0")
     protected int xp = 0;
+    @Min(value = 0, message = "Level must be more than 1")
     protected int level = 1;
+    @Min(value = 0, message = "Hero needs Hp to be alive. Must be more than 0")
     protected int health = 100;
+    @Min(value = 0, message = "No attack, no game. Must be more than 0")
     protected int attack = 0;
+    @Min(value = 0, message = "No defense, no build. Must be more than 0")
     protected int defence = 0;
     protected int levelUpexpIncrease = 1000;
 
