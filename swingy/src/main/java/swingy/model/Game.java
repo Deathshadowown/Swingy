@@ -90,6 +90,20 @@ public class Game{
         gameController.startGame(map.getMap(), map.getMapSize(), player);
     }
 
+    public void guiCreatingMap(){
+        try {
+            System.out.println("Generating Map...");
+            map.generateMap(player.getLevel());
+            System.out.println("Adding player to map");
+            map.addPlayerToMap();
+            System.out.println("Adding Monsters to map");
+            map.addMonstersToMap();
+        } catch (Exception e) {
+            System.out.println("Error: Please contract support.");
+        }
+        gameController.guiStartGame(map.getMap(), map.getMapSize(), player);
+    }
+
     public void LoadedPlayerMap(int[] playerLocation){
         try {
             System.out.println("Generating Map...");
@@ -102,6 +116,22 @@ public class Game{
             System.out.println("Error: Please contract support.");
         }
         gameController.startGame(map.getMap(), map.getMapSize(), player);
+    }
+
+    public void guicreatingNewMap(){
+        // try {
+            gameController.guiCreateNewMap();
+            //                                                         create a new fram to quit or exit then display startgame fram again
+            // System.out.println("Generating Map...");
+            // map.generateMap(player.getLevel());
+            // System.out.println("Adding player to map");
+            // map.addPlayerToMap();
+            // System.out.println("Adding Monsters to map");
+            // map.addMonstersToMap();
+        // } catch (Exception e) {
+            // System.out.println("Error: Please contract support.");
+        // }
+        // gameController.guiStartGame(map.getMap(), map.getMapSize(), player);
     }
 
     public void creatingNewMap(){
@@ -118,6 +148,229 @@ public class Game{
         }
         gameController.startGame(map.getMap(), map.getMapSize(), player);
     }
+
+    public void guiCommandWhereToMove(String command, char map[][]){
+        if (command.toLowerCase().equals("north")){
+            guimovingAroundMap(command, map);
+        }else if (command.toLowerCase().equals("south")){
+            guimovingAroundMap(command, map);
+        }else if (command.toLowerCase().equals("east")){
+            guimovingAroundMap(command, map);
+        }else if (command.toLowerCase().equals("west")){
+            guimovingAroundMap(command, map);
+        }else if (command.toLowerCase().equals("save")){
+            int[] location;
+            location = getHeroPostion(map);
+            player.saveGame(location);
+        }else if (command.toLowerCase().equals("quit")){
+            System.exit(2);
+        }
+}
+
+public void guimovingAroundMap(String command, char map[][]){
+    int[] location;
+    System.out.println(command);
+    location = getHeroPostion(map);
+    guiCalculateMove(command, location, map);
+}
+
+public void guiCalculateMove(String command, int[] location, char map[][]){
+    int xAxis = 0;
+    int yAxis = 0;
+    String postion = null;
+    String newCommand = null;
+    Random random = new Random();
+    int getrandom = 0;
+    int count = 0;
+    xAxis = location[0];
+    yAxis = location[1];
+    try {
+    if (command.toLowerCase().equals("north")){
+            // gameController.moveCommandDisplay(command);
+            xAxis--;
+            postion = String.valueOf(map[xAxis][yAxis]);
+            if (postion.equals("E")){
+                gameController.runOrFightInput(command, count);
+                // gameController.engageMonsterOrRun();
+                System.out.println("im here");
+                // if (newCommand.equals("fight")){
+                    // guiEngageMonster();
+                    // map[location[0]][yAxis] = 'O';
+                    // map[xAxis][yAxis] = 'P';
+                //     System.out.println("Fighting");
+                // }else if (newCommand.equals("run")){
+                //     getrandom = random.nextInt(100);
+                //     if (getrandom < 50){
+                //         gameController.failedToRun();
+                //         guiEngageMonster();
+                //         map[location[0]][yAxis] = 'O';
+                //         map[xAxis][yAxis] = 'P';
+                //     }else
+                //     gameController.escaped();
+                // }
+            }else{
+                map[location[0]][yAxis] = 'O';
+                map[xAxis][yAxis] = 'P';
+                gameController.guiStartGameWithOutMapSize(map, player);
+            }
+        }else if (command.toLowerCase().equals("south")){
+            // gameController.moveCommandDisplay(command);
+            xAxis++;
+            postion = String.valueOf(map[xAxis][yAxis]);
+            if (postion.equals("E")){
+                newCommand = gameController.engageMonsterOrRun(command);
+                if (newCommand.equals("fight")){
+                    guiEngageMonster();
+                    map[location[0]][yAxis] = 'O';
+                    map[xAxis][yAxis] = 'P';
+                }else if (newCommand.equals("run")){
+                    getrandom = random.nextInt(100);
+                    if (getrandom < 50){
+                        gameController.failedToRun();
+                        guiEngageMonster();
+                        map[location[0]][yAxis] = 'O';
+                        map[xAxis][yAxis] = 'P';
+                    }else
+                    gameController.escaped();
+                }
+            }else{
+                map[location[0]][yAxis] = 'O';
+                map[xAxis][yAxis] = 'P';
+            }
+        }else if (command.toLowerCase().equals("east")){
+            // gameController.moveCommandDisplay(command);
+            yAxis++;
+            postion = String.valueOf(map[xAxis][yAxis]);
+            if (postion.equals("E")){
+                newCommand = gameController.engageMonsterOrRun(command);
+                if (newCommand.equals("fight")){
+                    guiEngageMonster();
+                    map[xAxis][location[1]] = 'O';
+                    map[xAxis][yAxis] = 'P';
+                }else if (newCommand.equals("run")){
+                    getrandom = random.nextInt(100);
+                    if (getrandom < 50){
+                        gameController.failedToRun();
+                        guiEngageMonster();
+                        map[xAxis][location[1]] = 'O';
+                        map[xAxis][yAxis] = 'P';
+                    }else
+                    gameController.escaped();
+                }
+            }else{
+                map[xAxis][location[1]] = 'O';
+                map[xAxis][yAxis] = 'P';
+            }
+        }else if (command.toLowerCase().equals("west")){
+            // gameController.moveCommandDisplay(command);
+            yAxis--;
+            postion = String.valueOf(map[xAxis][yAxis]);
+            if (postion.equals("E")){
+                newCommand = gameController.engageMonsterOrRun(command);
+                if (newCommand.equals("fight")){
+                    guiEngageMonster();
+                    map[xAxis][location[1]] = 'O';
+                    map[xAxis][yAxis] = 'P';
+                }else if (newCommand.equals("run")){
+                    getrandom = random.nextInt(100);
+                    if (getrandom < 50){
+                        gameController.failedToRun();
+                        guiEngageMonster();
+                        map[xAxis][location[1]] = 'O';
+                        map[xAxis][yAxis] = 'P';
+                    }else
+                    gameController.escaped();
+                }
+            }else{
+                map[xAxis][location[1]] = 'O';
+                map[xAxis][yAxis] = 'P';
+            }
+        }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            guicreatingNewMap();
+        }
+}
+public void guiEngageMonster(){
+    int whoFightsFirst = 0;
+    int heroNewHealth = 0;
+    int monsterNewHealth = 0;
+    whoFightsFirst = random.nextInt(100);
+    String monsterToFight = null;
+    monsterToFight = monsterList.get(random.nextInt(monsterList.size()));
+    gameController.monsterEngageing(monsterToFight, 1);
+    createMonster(monsterToFight, monsterToFight);
+    if (whoFightsFirst <= 50){
+        gameController.attackFirstPlayerMonster(0);
+    }else if (whoFightsFirst >= 50){
+        gameController.attackFirstPlayerMonster(1);
+    }
+    while (true){
+        if (whoFightsFirst <= 50){
+            int heroAttack = player.getAttack();
+            int monsterTotalAttack = monster.getAttack() - player.getDefence();
+            monsterNewHealth = monster.getHealth() - heroAttack;
+            monster.setNewHealth(monsterNewHealth);
+            if (monster.getHealth() <= 0){
+                gameController.monsterEngageing(monsterToFight, 0);
+                System.out.println("You have earned "+monster.getXpGiven()+" Exp");
+                player.setXp(monster.getXpGiven());
+                player.expPerLevel();
+                itemDrop();
+                break;
+            }
+            heroNewHealth = player.getHealth() - monsterTotalAttack;
+            player.setNewHealth(heroNewHealth);
+            if (player.getHealth() <= 0)
+            {
+                gameController.herosDeath();
+            }
+        }else if (whoFightsFirst >= 50){
+            int heroAttack = player.getAttack();
+            int monsterTotalAttack = monster.getAttack() - player.getDefence();
+            heroNewHealth = player.getHealth() - monsterTotalAttack;
+            player.setNewHealth(heroNewHealth);
+            if (player.getHealth() <= 0)
+            {
+                gameController.herosDeath();
+            }
+            monsterNewHealth = monster.getHealth() - heroAttack;
+            monster.setNewHealth(monsterNewHealth);
+            if (monster.getHealth() <= 0){
+                gameController.monsterEngageing(monsterToFight, 0);
+                System.out.println("You have earned "+monster.getXpGiven()+" Exp");
+                player.setXp(monster.getXpGiven());
+                player.expPerLevel();
+                itemDrop();
+                break;
+            }
+        }
+    }
+}
+
+public void guiItemDrop(){
+    int itemDrop = 0;
+    String newCommand = null;
+    itemDrop = random.nextInt(6);
+    if(itemDrop == 0){
+        String WeaponDrop = weaponList.get(random.nextInt(weaponList.size()));
+        newCommand = gameController.itemDrops(WeaponDrop);
+        if (newCommand.equals("yes")){
+            player.setAttackWithWeapon(WeaponDrop);
+        }
+    }else if (itemDrop == 1){
+        String armourDrop = armourList.get(random.nextInt(armourList.size()));
+        newCommand = gameController.itemDrops(armourDrop);
+        if (newCommand.equals("yes")){
+            player.setDefenceWithArmour(armourDrop);
+        }
+    }else if (itemDrop == 2){
+        String helmDrop = helmList.get(random.nextInt(helmList.size()));
+        newCommand = gameController.itemDrops(helmDrop);
+        if (newCommand.equals("yes")){
+            player.setHealthWithHelm(helmDrop);
+        }
+    }
+}
 
     public void commandWhereToMove(String command, char map[][]){
             if (command.toLowerCase().equals("north")){

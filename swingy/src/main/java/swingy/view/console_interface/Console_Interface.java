@@ -36,6 +36,7 @@ public class Console_Interface{
         byte newGame = 1;
         byte loadGame = 2;
         byte gameMode = 0;
+        byte consoleActivate = 1;
         try {
             while(true){
             System.out.print("Please Select: ");
@@ -53,7 +54,7 @@ public class Console_Interface{
                 continue;
             }
         }
-        gameController.initializingGame(gameMode);
+        gameController.initializingGame(gameMode, consoleActivate);
         }catch (InputMismatchException notInt){
             System.out.println("ERROR: Please enter a valid number: 1,2");
         } catch (Exception e) {
@@ -110,7 +111,17 @@ public class Console_Interface{
         }
     }
     public void instructionsToGame(){
-        System.out.println("What the game is about add later");
+        // System.out.println("What the game is about add later");
+        		System.out.println("Welcome to Swingy, a text-based RPG that's loads of \"fun\".");
+		System.out.println(
+				"You'll be placed in the center of a grid where you'll have to try and reach either of the edges.");
+		System.out.println(
+				"You can move \"north\", \"south\", \"east\" or \"west\" and will encounter enemies along the way.");
+		System.out.println(
+				"Enemies will be places randomly on the map and will have a chance to drop loot and give you xp after being defeated.");
+		System.out.println(
+				"The map size is determined by your level and too complete the game you'll have to reach level 6.");
+		System.out.println("Good Luck!.");
     }
 
     public void displayPlayerInfo(Hero player){

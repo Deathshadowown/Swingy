@@ -33,7 +33,7 @@ import javax.validation.constraints.Size;
 public abstract class Hero{
     @NotBlank(message = "Name is Mandatory")
 	@NotNull(message = "Name can't be null")
-	@Size(min = 2, max = 10, message = "Name must be between {min} and {max}")
+	@Size(min = 2, max = 15, message = "Name must be between {min} and {max}")
 	@Pattern(regexp = "^[a-zA-Z0-9]*$", message = "Name must be Alphanumeric")
     private String heroName;
     @NotNull (message = "Hero class can't be null")
