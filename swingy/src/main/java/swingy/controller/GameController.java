@@ -38,7 +38,6 @@ public class GameController{
                 
             } catch (Exception e) {
                 System.out.println(e);
-                //TODO: handle exception
             }
         }
     }
@@ -65,10 +64,7 @@ public class GameController{
         }else if (consoleOrGui == guiUi){
             if (mainConsole == newGame){
                 System.out.println("newGame must create hero: GUI side ");
-                // characterCreate();
                 gui.heroNameInput();
-                // guiCharacterCreate();
-                // createMap();
             }else if (mainConsole == loadGame){
                 int[] playerLocation;
                 System.out.println("Will loadGame");
@@ -97,23 +93,16 @@ public class GameController{
 
     public void guiStartGame(char[][] map, int mapsize, Hero player)
     {
-        // String command = null;
-        // console.instructionsToGame();
-        // while (true)
-        // {
-            // console.displayPlayerInfo(player);
-            // console.printMap(map);
-            // command = console.displayCommand();
-            // gui.closeJfram3();
+        try {
             int count = 0;
             gui.guiStartingGame(player, map, count);
-            // game.commandWhereToMove(command, map);
-        // }
+            
+        } catch (Exception e) {
+            System.out.println("ERROR please contact support");
+        }
     }
 
     public void guiStartGameWithOutMapSize(char[][] map, Hero player, int count){
-        // System.out.println(count);
-        // System.out.println("weee");
         gui.guiStartingGame(player, map, count);
     }
 
@@ -199,10 +188,12 @@ public class GameController{
             game.creatingMap();
     }
 
-    public static void guiCreateNewMap(){
+    public static void guiCreateNewMap(char[][] map, int mapsize, Hero player){
         System.out.println("you won!!");
         gui.closeJfram3();
         gui.closeJfram4();
+        game.saveGameFile(map, mapsize, player);
+        gui.gameWon();
     }
     
     public static void createLoadedMap(int[] playerLocation){
@@ -223,8 +214,6 @@ public class GameController{
     }
 
     public void guiCharacterCreate(String heroName, String charClass){
-            System.out.println(heroName);
-            System.out.println(charClass);
             game.createCharacter(heroName, charClass);
             guiCreateMap();
     }
@@ -235,13 +224,6 @@ public class GameController{
             heroName = console.getHeroName();
             charClass = console.getCharClass();
             game.createCharacter(heroName, charClass);
-        // }else if (consoleOrGui == 2)
-        // {
-            // System.out.println("i got here");
-        //     // heroName = "shane";
-        //     // charClass = "Assassin";
-        //     // game.createCharacter(heroName, charClass);
-        // }
     }
     public void info(Hero player){
         console.displayPlayerInfo(player);
@@ -251,34 +233,6 @@ public class GameController{
         command = console.displayEngageorRunMessage(command);
         return(command);
     }
-
-    // public void runOrFightInput(String command, int count){
-    //     if (count == 0){
-    //         gui.closeJfram3();
-    //         gui.runOrFight(command);
-    //     }
-    //     if (count == 1)
-    //     {
-    //         System.out.println("got fight");
-    //         // return "fight";
-    //     }
-    //     if (count == 2)
-    //     {
-    //         System.out.println("got run");
-    //         // return "run";
-    //     }
-    // }
-    // public void getInputRunOrFight(String command,String fightorRun){
-    //     int count = 0;
-    //     if (fightorRun.toLowerCase().equals("fight")){
-    //         count = 1;
-    //         runOrFightInput(command, count);
-    //     }
-    //     else if (fightorRun.toLowerCase().equals("run")){
-    //         count = 2;
-    //         runOrFightInput(command, count);
-    //     }
-    // }
 
     public void failedToRun(){
         console.displayFailedRunMessage();

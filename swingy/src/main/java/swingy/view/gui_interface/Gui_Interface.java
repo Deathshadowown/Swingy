@@ -47,6 +47,7 @@ public class Gui_Interface extends javax.swing.JFrame implements ActionListener{
     private JFrame frame10 = new JFrame();
     private JFrame frame11 = new JFrame();
     private JFrame frame12 = new JFrame();
+    private JFrame frame13 = new JFrame();
     public Gui_Interface(GameController gameController){
 
         this.gameController = gameController;
@@ -90,6 +91,29 @@ public class Gui_Interface extends javax.swing.JFrame implements ActionListener{
         frame.setTitle("Swingy");
         frame.pack();
         frame.setVisible(true);
+    }
+
+    public void gameWon(){
+        JPanel panel = new JPanel();
+        JButton okay = new JButton("okay");
+        JLabel wonGame = new JLabel("congratulations Hero you have made it to the end of the map,"
+        + " May you be knowen through out the whole world!!!!. Save has been made Please load game to start a new map");
+        panel.setBorder(BorderFactory.createEmptyBorder(150, 150, 150, 150));
+        panel.setLayout(new GridLayout(0, 1));
+        panel.add(wonGame);
+        panel.add(okay);
+        okay.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+
+        frame13.add(panel, BorderLayout.CENTER);
+        frame13.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame13.setTitle("Swingy");
+        frame13.pack();
+        frame13.setVisible(true);
     }
 
     // public void newGame.addActionListener(new ActionListener(){
@@ -213,9 +237,9 @@ public class Gui_Interface extends javax.swing.JFrame implements ActionListener{
         JButton run = new JButton("run");
         JButton save = new JButton("save");
         JButton quit = new JButton("quit");
-        // heroStates(player);
+        JButton okay = new JButton("okay");
         
-        // JLabel randomMessages = new JLabel("Please press Okay when you done fighting or running to see what happend");
+        JLabel randomMessages = new JLabel("Press okay to Refresh states");
         JLabel playerStates = new JLabel("Player Stats.");
         JLabel playerName = new JLabel("Hero Name: "+player.getHeroName());
         JLabel playerClass = new JLabel("Heros Class: "+player.getCharClass());
@@ -232,7 +256,6 @@ public class Gui_Interface extends javax.swing.JFrame implements ActionListener{
         JLabel playerCurrentHelmHealth = new JLabel("Current Helm stats: "+player.getCurrentHelmHealth()+" Health");
         panel.setBorder(BorderFactory.createEmptyBorder(150, 150, 150, 150));
         panel.setLayout(new GridLayout(0, 1));
-        // panel.add(randomMessages);
         panel.add(playerStates);
         panel.add(playerName);
         panel.add(playerClass);
@@ -301,7 +324,6 @@ public class Gui_Interface extends javax.swing.JFrame implements ActionListener{
                     System.exit(0);
                 }
             });
-        System.out.println(count+" this is the count");
         frame3.add(panel, BorderLayout.CENTER);
         frame3.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame3.setTitle("Swingy");

@@ -147,19 +147,14 @@ public class Game{
     }
 
     public void guicreatingNewMap(){
-        // try {
-            gameController.guiCreateNewMap();
+        try {
             //                                                         create a new fram to quit or exit then display startgame fram again
-            // System.out.println("Generating Map...");
-        //     map.generateMap(player.getLevel());
-        //     System.out.println("Adding player to map");
-        //     map.addPlayerToMap();
-        //     System.out.println("Adding Monsters to map");
-        //     map.addMonstersToMap();
-        // } catch (Exception e) {
-        //     System.out.println("Error: Please contract support.");
-        // }
-        // gameController.guiStartGame(map.getMap(), map.getMapSize(), player);
+            map.generateMap(player.getLevel());
+            gameController.guiCreateNewMap(map.getMap(), map.getMapSize(),player);
+        } catch (Exception e) {
+            System.out.println("Error: Please contract support.");
+        }
+        gameController.guiStartGame(map.getMap(), map.getMapSize(), player);
     }
 
     public void creatingNewMap(){
@@ -195,17 +190,25 @@ public class Game{
         }
 }
 
+public void saveGameFile(char[][] map, int mapsize, Hero player){
+    int[] location = new int[2];
+    int rnd = 0;
+    int rnd2 = 0;
+    int mapSizee = (player.getLevel() - 1) * 5 + 10 - (player.getLevel() % 2);
+    rnd = random.nextInt(mapSizee);
+    rnd2 = random.nextInt(mapSizee);
+    location[0] = rnd;
+    location[1] = rnd2;
+    player.saveGame(location);
+    System.out.println("save successful");
+}
+
 public void guimovingAroundMap(String command, char map[][], int count){
     int[] location;
     System.out.println(command);
     location = getHeroPostion(map);
     guiCalculateMove(command, location, map, count);
 }
-
-// public String whatTodDo(){
-//     String nullForNow = null;
-//     return gameController.fightingOrRunning(nullForNow, 0);
-// }
 
 public int getRandomRoll(int number){
     Random random = new Random();
@@ -274,7 +277,6 @@ public void guiCalculateMove(String command, int[] location, char map[][], int c
             }
         }
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println(xAxis);
             guicreatingNewMap();
         }
 }
@@ -305,7 +307,6 @@ public void guiEngageMonster(){
             int monsterTotalAttack = monster.getAttack() - player.getDefence();
             monsterNewHealth = monster.getHealth() - heroAttack;
             monster.setNewHealth(monsterNewHealth);
-            System.out.println("attack: "+player.getAttack());
             if (monster.getHealth() <= 0){
                 gameController.guiMonsterEngageing(monsterToFight, 1);
                 gameController.amountOfExp(monsterExp);
@@ -336,7 +337,6 @@ public void guiEngageMonster(){
             }
             monsterNewHealth = monster.getHealth() - heroAttack;
             monster.setNewHealth(monsterNewHealth);
-            System.out.println("attack: "+player.getAttack());
             if (monster.getHealth() <= 0){
                 gameController.guiMonsterEngageing(monsterToFight, 1);
                 gameController.amountOfExp(monsterExp);
@@ -388,22 +388,12 @@ public void dontWantItem(){
    gameController.guiStartGameWithOutMapSize(map.getMap(), player, 0);
 }
 public void WantItem(String itemName, String typeOfItem){
-    System.out.println("want Item damn yes!!!");
-    System.out.println(itemName);
-    System.out.println(typeOfItem);
     if (typeOfItem.toLowerCase().equals("weapon")){
         player.setAttackWithWeapon(itemName);
-        System.out.println(player.getAttack());
-        System.out.println(player.getCurrentWeapon());
-        System.out.println(player.getCurrentWeaponAttack());
     }else if (typeOfItem.toLowerCase().equals("armour")){
         player.setDefenceWithArmour(itemName);
-        System.out.println(player.getDefence());
-        System.out.println(player.getCurrentArmour());
     }else if (typeOfItem.toLowerCase().equals("helm")){
         player.setHealthWithHelm(itemName);
-        System.out.println(player.getHealth());
-        System.out.println(player.getCurrentHelm());
     }
     gameController.guiStartGameWithOutMapSize(map.getMap(), player, 0);
 }
@@ -428,7 +418,6 @@ public void WantItem(String itemName, String typeOfItem){
 
     public void movingAroundMap(String command, char map[][]){
         int[] location;
-        System.out.println(command);
         location = getHeroPostion(map);
         calculateMove(command, location, map);
     }
