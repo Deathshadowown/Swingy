@@ -121,11 +121,11 @@ public class GameController{
                 random  = game.getRandomRoll(3);
                 game.guiEngageMonster();
                 if (random == 0){
-                    game.guiItemDrop();
+                    game.guiItemDrop(map, player);
                 }else if (random == 1){
-                    game.guiItemDrop();
+                    game.guiItemDrop(map, player);
                 }else if (random == 2){
-                    game.guiItemDrop();
+                    game.guiItemDrop(map, player);
                 }else{
                     guiStartGameWithOutMapSize(map, player, 0);
                 }
@@ -140,15 +140,15 @@ public class GameController{
         try {
             int random = 0;
             random = game.getRandomRoll(100);
-            if (random < 50){
+            if (random <= 50){
                 game.guiEngageMonster();
                 random = game.getRandomRoll(3);
                 if (random == 0){
-                    game.guiItemDrop();
+                    game.guiItemDrop(map, player);
                 }else if (random == 1){
-                    game.guiItemDrop();
+                    game.guiItemDrop(map, player);
                 }else if (random == 2){
-                    game.guiItemDrop();
+                    game.guiItemDrop(map, player);
                 }else{
                     guiStartGameWithOutMapSize(map, player, 0);
                 }
@@ -168,12 +168,12 @@ public class GameController{
         game.dontWantItem();
     }
 
-    public void yesItemDrop(String itemName, String typeOfItem){
-        game.WantItem(itemName, typeOfItem);
+    public void yesItemDrop(String itemName, String typeOfItem, char map[][], Hero player){
+        game.WantItem(itemName, typeOfItem, map, player);
     }
 
-    public void guiItemDrops(String itemName, String typeOfItem){
-        gui.guiItemDropName(itemName, typeOfItem);
+    public void guiItemDrops(String itemName, String typeOfItem, char map[][], Hero player){
+        gui.guiItemDropName(itemName, typeOfItem, map, player);
     }
 
     public void whoFightsFirstone(String playerOrMonsterFirst){

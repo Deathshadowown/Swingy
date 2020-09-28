@@ -355,23 +355,27 @@ public class Gui_Interface extends javax.swing.JFrame implements ActionListener{
 
         public void whoAttacksFirst(String playerOrMonsterFirst){
             JPanel panel = new JPanel();
-            JButton okay = new JButton("okay");
-            JLabel whoFirst = new JLabel("weee");
+            Object[] options = {"OK"};
+            int n;
             if (playerOrMonsterFirst.toLowerCase().equals("player")){
-                whoFirst.setText("hero got first attack");
+                n = JOptionPane.showOptionDialog(frame,
+                               "hero got first attack","Title",
+                               JOptionPane.PLAIN_MESSAGE,
+                               JOptionPane.QUESTION_MESSAGE,
+                               null,
+                               options,
+                               options[0]);
             }else if (playerOrMonsterFirst.toLowerCase().equals("monster")){
-                whoFirst.setText("monster got first attack");
+                n = JOptionPane.showOptionDialog(frame,
+                               "monster got first attack","Title",
+                               JOptionPane.PLAIN_MESSAGE,
+                               JOptionPane.QUESTION_MESSAGE,
+                               null,
+                               options,
+                               options[0]);
             }
             panel.setBorder(BorderFactory.createEmptyBorder(150, 150, 150, 150));
             panel.setLayout(new GridLayout(0, 1));
-            panel.add(whoFirst);
-            panel.add(okay);
-            okay.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    frame6.dispose();
-                }
-            });
 
         frame6.add(panel, BorderLayout.CENTER);
         frame6.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -384,45 +388,41 @@ public class Gui_Interface extends javax.swing.JFrame implements ActionListener{
         public void monsterGoingToFight(String monsterToFight){
             JPanel panel = new JPanel();
             JButton okay = new JButton("okay");
-            JLabel monsterToF = new JLabel("You going to fight: "+monsterToFight);
             panel.setBorder(BorderFactory.createEmptyBorder(150, 150, 150, 150));
             panel.setLayout(new GridLayout(0, 1));
-            panel.add(monsterToF);
-            panel.add(okay);
-            okay.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    frame7.dispose();
-                }
-            });
-
+            Object[] options = {"OK"};
+            int n = JOptionPane.showOptionDialog(frame,
+                           "You going to fight: "+monsterToFight,"Title",
+                           JOptionPane.PLAIN_MESSAGE,
+                           JOptionPane.QUESTION_MESSAGE,
+                           null,
+                           options,
+                           options[0]);
         frame7.add(panel, BorderLayout.CENTER);
         frame7.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame7.setTitle("Swingy");
         frame7.pack();
-        frame7.setVisible(true);
+        frame7.setVisible(false);
     }
 
     public void monstDeafeatedMessage(String monsterDeath){
         JPanel panel = new JPanel();
         JButton okay = new JButton("okay");
-        JLabel monsterD = new JLabel("You have Deafeated "+monsterDeath);
         panel.setBorder(BorderFactory.createEmptyBorder(150, 150, 150, 150));
         panel.setLayout(new GridLayout(0, 1));
-        panel.add(monsterD);
-        panel.add(okay);
-        okay.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                frame8.dispose();
-            }
-        });
-
+        Object[] options = {"OK"};
+        int n = JOptionPane.showOptionDialog(frame,
+                       "You have Deafeated "+monsterDeath,"Title",
+                       JOptionPane.PLAIN_MESSAGE,
+                       JOptionPane.QUESTION_MESSAGE,
+                       null,
+                       options,
+                       options[0]);
         frame8.add(panel, BorderLayout.CENTER);
         frame8.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame8.setTitle("Swingy");
         frame8.pack();
-        frame8.setVisible(true);
+        frame8.setVisible(false);
     }
 
     public void amountOfExpGiven(int monsterExp){
@@ -468,37 +468,39 @@ public class Gui_Interface extends javax.swing.JFrame implements ActionListener{
         frame10.pack();
         frame10.setVisible(true);
     }
-
-    public void guiItemDropName(String ItemName, String typeOfItem){
+    // private JLabel itemN = new JLabel("Do you want to equip item yes or no?");
+    public void guiItemDropName(String itemName, String typeOfItem, char map[][], Hero player){
         JPanel panel = new JPanel();
-        JButton yes = new JButton("yes");
-        JButton no = new JButton("no");
-        JLabel itemN = new JLabel("Do you want to equip item yes or no?"+ItemName);
+        // JButton yes = new JButton("yes");
+        // JButton no = new JButton("no");
+        // itemN.setText("Do you want to equip item yes or no?"+itemName);
+        // JLabel itemN = new JLabel("Do you want to equip item yes or no?"+itemName);
+        // System.out.println("inside item drop");
+        // System.out.println(itemName);
+        // System.out.println(typeOfItem);
+        // gameController.yesItemDrop(itemName, typeOfItem, map, player);
+        // closeJfram3();
+        // frame11.dispose();
         panel.setBorder(BorderFactory.createEmptyBorder(150, 150, 150, 150));
         panel.setLayout(new GridLayout(0, 1));
-        panel.add(itemN);
-        panel.add(yes);
-        panel.add(no);
-        yes.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                gameController.yesItemDrop(ItemName, typeOfItem);
+        // panel.add(itemN);
+        // panel.add(yes);
+        // panel.add(no);
+        if (JOptionPane.showConfirmDialog(null, "Do you want to equip item yes or no?"+itemName, "WARNING",
+        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                // yes option
                 frame11.dispose();
-            }
-        });
-        no.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                gameController.noItemDrop();
-                frame11.dispose();
-            }
-        });
-
+                gameController.yesItemDrop(itemName, typeOfItem, map, player);
+        } else {
+            frame11.dispose();
+            gameController.yesItemDrop(itemName, typeOfItem, map, player);
+                // no option
+        }
         frame11.add(panel, BorderLayout.CENTER);
         frame11.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame11.setTitle("Swingy");
         frame11.pack();
-        frame11.setVisible(true);
+        frame11.setVisible(false);
     }
 
     public void runOrFight(String command, int[] location, char map[][], String userInput, Hero player){
@@ -536,26 +538,6 @@ public class Gui_Interface extends javax.swing.JFrame implements ActionListener{
         frame4.pack();
         frame4.setVisible(true);
     }
-
-    // public void displayPlayerInfo(Hero player){
-    //     JLabel playersattack = new JLabel("Current ");
-    //     System.out.println("-------------------------------------");
-    //     System.out.println("Player Stats");
-    //     System.out.println("Hero Name: "+player.getHeroName());
-    //     System.out.println("Heros Class: "+player.getCharClass());
-    //     System.out.println("exp: "+player.getXp());
-    //     System.out.println("Current level: "+player.getLevel());
-    //     System.out.println("Current Health: "+player.getHealth());
-    //     System.out.println("Current Attack: "+player.getAttack());
-    //     System.out.println("Current Defence: "+player.getDefence());
-    //     System.out.println("Current Weapon: "+player.getCurrentWeapon());
-    //     System.out.println("Current Weapon stats: "+player.getCurrentWeaponAttack()+" Attack");
-    //     System.out.println("Current Armour: "+player.getCurrentArmour());
-    //     System.out.println("Current Armour stats: "+player.getCurrentArmourDefence()+" Defence");
-    //     System.out.println("Current Helm: "+player.getCurrentHelm());
-    //     System.out.println("Current Helm stats: "+player.getCurrentHelmHealth()+" Health");
-    //     System.out.println("-------------------------------------");
-    // }
 
     public void mainMenuGui(){
         Gui_Interface firstGuiInterface = new Gui_Interface(gameController);

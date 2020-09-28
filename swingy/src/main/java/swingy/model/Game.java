@@ -205,7 +205,7 @@ public void saveGameFile(char[][] map, int mapsize, Hero player){
 
 public void guimovingAroundMap(String command, char map[][], int count){
     int[] location;
-    System.out.println(command);
+    // System.out.println(command);
     location = getHeroPostion(map);
     guiCalculateMove(command, location, map, count);
 }
@@ -291,7 +291,7 @@ public void guiEngageMonster(){
     whoFightsFirst = random.nextInt(100);
     String monsterToFight = null;
     monsterToFight = monsterList.get(random.nextInt(monsterList.size())); // gui not displaying right monster
-    gameController.guiMonsterEngageing(monsterToFight, 0);
+    gameController.guiMonsterEngageing(monsterToFight, 1);
     createMonster(monsterToFight, monsterToFight);
     monsterExp = monster.getXpGiven();
     if (whoFightsFirst <= 50){
@@ -308,7 +308,7 @@ public void guiEngageMonster(){
             monsterNewHealth = monster.getHealth() - heroAttack;
             monster.setNewHealth(monsterNewHealth);
             if (monster.getHealth() <= 0){
-                gameController.guiMonsterEngageing(monsterToFight, 1);
+                gameController.guiMonsterEngageing(monsterToFight, 0);
                 gameController.amountOfExp(monsterExp);
                 player.setXp(monster.getXpGiven());
                 player.expPerLevel();
@@ -338,7 +338,7 @@ public void guiEngageMonster(){
             monsterNewHealth = monster.getHealth() - heroAttack;
             monster.setNewHealth(monsterNewHealth);
             if (monster.getHealth() <= 0){
-                gameController.guiMonsterEngageing(monsterToFight, 1);
+                gameController.guiMonsterEngageing(monsterToFight, 0);
                 gameController.amountOfExp(monsterExp);
                 player.setXp(monster.getXpGiven());
                 player.expPerLevel();
@@ -352,42 +352,33 @@ public void guiEngageMonster(){
     }
 }
 
-public void guiItemDrop(){
+public void guiItemDrop(char map[][], Hero player){
     int itemDrop = 0;
     String newCommand = null;
     String typeOfItem = null;
+    String WeaponDrop = null;
+    String armourDrop = null;
+    String helmDrop = null;
     itemDrop = random.nextInt(3);
     if(itemDrop == 0){
-        String WeaponDrop = weaponList.get(random.nextInt(weaponList.size()));
-        // newCommand = gameController.itemDrops(WeaponDrop);
+        WeaponDrop = weaponList.get(random.nextInt(weaponList.size()));
         typeOfItem = "weapon";
-        gameController.guiItemDrops(WeaponDrop, typeOfItem);
-        // if (newCommand.equals("yes")){
-        //     player.setAttackWithWeapon(WeaponDrop);
-        // }
+        gameController.guiItemDrops(WeaponDrop, typeOfItem, map, player);
     }else if (itemDrop == 1){
-        String armourDrop = armourList.get(random.nextInt(armourList.size()));
-        // newCommand = gameController.itemDrops(armourDrop);
+        armourDrop = armourList.get(random.nextInt(armourList.size()));
         typeOfItem = "armour";
-        gameController.guiItemDrops(armourDrop, typeOfItem);
-        // if (newCommand.equals("yes")){
-        //     player.setDefenceWithArmour(armourDrop);
-        // }
+        gameController.guiItemDrops(armourDrop, typeOfItem, map, player);
     }else if (itemDrop == 2){
-        String helmDrop = helmList.get(random.nextInt(helmList.size()));
-        // newCommand = gameController.itemDrops(helmDrop);
+        helmDrop = helmList.get(random.nextInt(helmList.size()));
         typeOfItem = "helm";
-        gameController.guiItemDrops(helmDrop, typeOfItem);
-        // if (newCommand.equals("yes")){
-        //     player.setHealthWithHelm(helmDrop);
-        // }
+        gameController.guiItemDrops(helmDrop, typeOfItem, map, player);
     }
 }
 
 public void dontWantItem(){
    gameController.guiStartGameWithOutMapSize(map.getMap(), player, 0);
 }
-public void WantItem(String itemName, String typeOfItem){
+public void WantItem(String itemName, String typeOfItem, char map[][], Hero player){
     if (typeOfItem.toLowerCase().equals("weapon")){
         player.setAttackWithWeapon(itemName);
     }else if (typeOfItem.toLowerCase().equals("armour")){
@@ -395,7 +386,7 @@ public void WantItem(String itemName, String typeOfItem){
     }else if (typeOfItem.toLowerCase().equals("helm")){
         player.setHealthWithHelm(itemName);
     }
-    gameController.guiStartGameWithOutMapSize(map.getMap(), player, 0);
+    gameController.guiStartGameWithOutMapSize(map, player, 0);
 }
 
     public void commandWhereToMove(String command, char map[][]){
