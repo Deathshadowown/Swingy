@@ -24,7 +24,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JOptionPane;
-import java.awt.*; 
+import javax.swing.JTextArea;
+import java.awt.*;
 import java.awt.event.*;
 
 public class Gui_Interface extends javax.swing.JFrame implements ActionListener{
@@ -49,8 +50,9 @@ public class Gui_Interface extends javax.swing.JFrame implements ActionListener{
     private JFrame frame12 = new JFrame();
     private JFrame frame13 = new JFrame();
     private JFrame frame14 = new JFrame();
-    public Gui_Interface(GameController gameController){
 
+
+    public Gui_Interface(GameController gameController){
         this.gameController = gameController;
         byte startGame = 1;
         byte loadingGame = 2;
@@ -65,8 +67,11 @@ public class Gui_Interface extends javax.swing.JFrame implements ActionListener{
             public void actionPerformed(ActionEvent e) {
                 // JOptionPane.showMessageDialog(this, textBox.getText());
                 label.setText("newGame");
-                gameController.initializingGame(startGame, guiInterface);
+                // Container old = getContentPane();
+                // remove(old);
                 frame.setVisible(false);
+                gameController.initializingGame(startGame, guiInterface);
+                // setVisible(false);
                 // setNameAndClass();
             }
         });
@@ -76,7 +81,7 @@ public class Gui_Interface extends javax.swing.JFrame implements ActionListener{
                 // JOptionPane.showMessageDialog(this, textBox.getText());
                 label.setText("loadGame");
                 gameController.initializingGame(loadingGame, guiInterface);
-                frame.setVisible(false);
+                // setVisible(false);
                 // setNameAndClass();
             }
         });
@@ -88,7 +93,7 @@ public class Gui_Interface extends javax.swing.JFrame implements ActionListener{
         panel.add(loadGame);
 
         frame.add(panel, BorderLayout.CENTER);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         frame.setTitle("Swingy");
         frame.pack();
         frame.setVisible(true);
@@ -112,7 +117,7 @@ public class Gui_Interface extends javax.swing.JFrame implements ActionListener{
 
         frame13.add(panel, BorderLayout.CENTER);
         frame13.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame13.setTitle("Swingy");
+        frame13.setTitle("Swingy1");
         frame13.pack();
         frame13.setVisible(true);
     }
@@ -171,10 +176,12 @@ public class Gui_Interface extends javax.swing.JFrame implements ActionListener{
         panel.add(heroName);
         panel.add(okay);
         // panel.add(heroName);
-
+        add(panel, BorderLayout.CENTER);
+        // revalidate();
+        // repaint();
         frame2.add(panel, BorderLayout.CENTER);
         frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame2.setTitle("Swingy");
+        frame2.setTitle("Swingy2");
         frame2.pack();
         frame2.setVisible(true);
     }
@@ -197,8 +204,11 @@ public class Gui_Interface extends javax.swing.JFrame implements ActionListener{
         JLabel playerCurrentWeaponDefence = new JLabel("Current Armour stats: "+player.getCurrentArmourDefence()+" Defence");
         JLabel playerCurrentHelm = new JLabel("Current Helm: "+player.getCurrentHelm());
         JLabel playerCurrentHelmHealth = new JLabel("Current Helm stats: "+player.getCurrentHelmHealth()+" Health");
+        // JTextArea newText = new JTextArea();
+
         panel.setBorder(BorderFactory.createEmptyBorder(150, 150, 150, 150));
         panel.setLayout(new GridLayout(0, 1));
+        // panel.add(newText);
         panel.add(randomMessages);
         panel.add(playerStates);
         panel.add(playerName);
@@ -224,10 +234,11 @@ public class Gui_Interface extends javax.swing.JFrame implements ActionListener{
 
         frame12.add(panel, BorderLayout.CENTER);
         frame12.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame12.setTitle("Swingy");
+        frame12.setTitle("Swingy3");
         frame12.pack();
         frame12.setVisible(true);
     }
+    
     public void guiStartingGame(Hero player, char map[][], int count){
         JPanel panel = new JPanel();
         JButton north = new JButton("north");
@@ -239,7 +250,6 @@ public class Gui_Interface extends javax.swing.JFrame implements ActionListener{
         JButton save = new JButton("save");
         JButton quit = new JButton("quit");
         JButton okay = new JButton("okay");
-        
         JLabel randomMessages = new JLabel("Press okay to Refresh states");
         JLabel playerStates = new JLabel("Player Stats.");
         JLabel playerName = new JLabel("Hero Name: "+player.getHeroName());
@@ -257,6 +267,7 @@ public class Gui_Interface extends javax.swing.JFrame implements ActionListener{
         JLabel playerCurrentHelmHealth = new JLabel("Current Helm stats: "+player.getCurrentHelmHealth()+" Health");
         panel.setBorder(BorderFactory.createEmptyBorder(150, 150, 150, 150));
         panel.setLayout(new GridLayout(0, 1));
+        panel.add(newText);
         panel.add(playerStates);
         panel.add(playerName);
         panel.add(playerClass);
@@ -277,6 +288,7 @@ public class Gui_Interface extends javax.swing.JFrame implements ActionListener{
         panel.add(west);
         panel.add(save);
         panel.add(quit);
+        panel.add(okay);
             north.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -325,9 +337,18 @@ public class Gui_Interface extends javax.swing.JFrame implements ActionListener{
                     System.exit(0);
                 }
             });
+            okay.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    gameController.guiStartGameWithOutMapSize(map, player, 0);
+                    }
+            });
+
         frame3.add(panel, BorderLayout.CENTER);
         frame3.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame3.setTitle("Swingy");
+        frame3.setTitle("Swingy4");
+        // frame3.revalidate();
+        // frame3.repaint();
         frame3.pack();
         frame3.setVisible(true);
     }
@@ -359,7 +380,7 @@ public class Gui_Interface extends javax.swing.JFrame implements ActionListener{
             Object[] options = {"OK"};
             int n;
             if (playerOrMonsterFirst.toLowerCase().equals("player")){
-                n = JOptionPane.showOptionDialog(frame,
+                n = JOptionPane.showOptionDialog(this,
                                "hero got first attack","Title",
                                JOptionPane.PLAIN_MESSAGE,
                                JOptionPane.QUESTION_MESSAGE,
@@ -367,7 +388,7 @@ public class Gui_Interface extends javax.swing.JFrame implements ActionListener{
                                options,
                                options[0]);
             }else if (playerOrMonsterFirst.toLowerCase().equals("monster")){
-                n = JOptionPane.showOptionDialog(frame,
+                n = JOptionPane.showOptionDialog(this,
                                "monster got first attack","Title",
                                JOptionPane.PLAIN_MESSAGE,
                                JOptionPane.QUESTION_MESSAGE,
@@ -380,7 +401,7 @@ public class Gui_Interface extends javax.swing.JFrame implements ActionListener{
 
         frame6.add(panel, BorderLayout.CENTER);
         frame6.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame6.setTitle("Swingy");
+        frame6.setTitle("Swingy5");
         frame6.pack();
         frame6.setVisible(false);
         }
@@ -392,7 +413,7 @@ public class Gui_Interface extends javax.swing.JFrame implements ActionListener{
             panel.setBorder(BorderFactory.createEmptyBorder(150, 150, 150, 150));
             panel.setLayout(new GridLayout(0, 1));
             Object[] options = {"OK"};
-            int n = JOptionPane.showOptionDialog(frame,
+            int n = JOptionPane.showOptionDialog(this,
                            "You going to fight: "+monsterToFight,"Title",
                            JOptionPane.PLAIN_MESSAGE,
                            JOptionPane.QUESTION_MESSAGE,
@@ -401,7 +422,7 @@ public class Gui_Interface extends javax.swing.JFrame implements ActionListener{
                            options[0]);
         frame7.add(panel, BorderLayout.CENTER);
         frame7.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame7.setTitle("Swingy");
+        frame7.setTitle("Swingy6");
         frame7.pack();
         frame7.setVisible(false);
     }
@@ -422,7 +443,7 @@ public class Gui_Interface extends javax.swing.JFrame implements ActionListener{
         });
     frame14.add(panel, BorderLayout.CENTER);
     frame14.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    frame14.setTitle("Swingy");
+    frame14.setTitle("Swingy7");
     frame14.pack();
     frame14.setVisible(true);
     }
@@ -433,7 +454,7 @@ public class Gui_Interface extends javax.swing.JFrame implements ActionListener{
         panel.setBorder(BorderFactory.createEmptyBorder(150, 150, 150, 150));
         panel.setLayout(new GridLayout(0, 1));
         Object[] options = {"OK"};
-        int n = JOptionPane.showOptionDialog(frame,
+        int n = JOptionPane.showOptionDialog(this,
                        "You have Deafeated "+monsterDeath,"Title",
                        JOptionPane.PLAIN_MESSAGE,
                        JOptionPane.QUESTION_MESSAGE,
@@ -442,7 +463,7 @@ public class Gui_Interface extends javax.swing.JFrame implements ActionListener{
                        options[0]);
         frame8.add(panel, BorderLayout.CENTER);
         frame8.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame8.setTitle("Swingy");
+        frame8.setTitle("Swingy8");
         frame8.pack();
         frame8.setVisible(false);
     }
@@ -450,31 +471,22 @@ public class Gui_Interface extends javax.swing.JFrame implements ActionListener{
     public void amountOfExpGiven(int monsterExp){
         JPanel panel = new JPanel();
         JButton okay = new JButton("okay");
-        // JLabel monsterXp = new JLabel("You have earned "+monsterExp+" Exp");
         panel.setBorder(BorderFactory.createEmptyBorder(150, 150, 150, 150));
         panel.setLayout(new GridLayout(0, 1));
         Object[] options = {"OK"};
-        int n = JOptionPane.showOptionDialog(frame,
+        int n = JOptionPane.showOptionDialog(this,
                        "You have earned "+monsterExp+" Exp","Title",
                        JOptionPane.PLAIN_MESSAGE,
                        JOptionPane.QUESTION_MESSAGE,
                        null,
                        options,
                        options[0]);
-        // panel.add(monsterXp);
-        // panel.add(okay);
-        // okay.addActionListener(new ActionListener() {
-        //     @Override
-        //     public void actionPerformed(ActionEvent e) {
-        //         frame9.dispose();
-        //     }
-        // });
 
         frame9.add(panel, BorderLayout.CENTER);
         frame9.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame9.setTitle("Swingy");
+        frame9.setTitle("Swingy9");
         frame9.pack();
-        frame9.setVisible(true);
+        frame9.setVisible(false);
     }
 
     public void playerLevelUpMessage(int playerLevel){
@@ -494,7 +506,7 @@ public class Gui_Interface extends javax.swing.JFrame implements ActionListener{
 
         frame10.add(panel, BorderLayout.CENTER);
         frame10.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame10.setTitle("Swingy");
+        frame10.setTitle("Swingy10");
         frame10.pack();
         frame10.setVisible(true);
     }
@@ -503,6 +515,7 @@ public class Gui_Interface extends javax.swing.JFrame implements ActionListener{
         JPanel panel = new JPanel();
         panel.setBorder(BorderFactory.createEmptyBorder(150, 150, 150, 150));
         panel.setLayout(new GridLayout(0, 1));
+        frame11.dispose();
         if (JOptionPane.showConfirmDialog(null, "Do you want to equip item yes or no?"+itemName, "WARNING",
         JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                 // yes option
@@ -515,7 +528,7 @@ public class Gui_Interface extends javax.swing.JFrame implements ActionListener{
         }
         frame11.add(panel, BorderLayout.CENTER);
         frame11.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame11.setTitle("Swingy");
+        frame11.setTitle("Swingy11");
         frame11.pack();
         frame11.setVisible(false);
     }
@@ -551,13 +564,8 @@ public class Gui_Interface extends javax.swing.JFrame implements ActionListener{
 
         frame4.add(panel, BorderLayout.CENTER);
         frame4.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame4.setTitle("Swingy");
+        frame4.setTitle("Swingy12");
         frame4.pack();
         frame4.setVisible(true);
-    }
-
-    public void mainMenuGui(){
-        Gui_Interface firstGuiInterface = new Gui_Interface(gameController);
-
     }
 }

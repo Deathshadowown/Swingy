@@ -32,13 +32,6 @@ public class GameController{
             }
         if (interfaces == 1){
             console.mainConsole();
-        }else if (interfaces == 2){
-            try {
-                gui.mainMenuGui();
-                
-            } catch (Exception e) {
-                System.out.println(e);
-            }
         }
     }
 
@@ -64,7 +57,7 @@ public class GameController{
         }else if (consoleOrGui == guiUi){
             if (mainConsole == newGame){
                 System.out.println("newGame must create hero: GUI side ");
-                gui.heroNameInput();
+                gui.heroNameInput(); // 
             }else if (mainConsole == loadGame){
                 int[] playerLocation;
                 System.out.println("Will loadGame");
