@@ -154,7 +154,7 @@ public class Game{
         } catch (Exception e) {
             System.out.println("Error: Please contract support.");
         }
-        gameController.guiStartGame(map.getMap(), map.getMapSize(), player);
+        // gameController.guiStartGame(map.getMap(), map.getMapSize(), player);
     }
 
     public void creatingNewMap(){
@@ -280,12 +280,13 @@ public void guiCalculateMove(String command, int[] location, char map[][], int c
             guicreatingNewMap();
         }
 }
-public void guiEngageMonster(){
+public int guiEngageMonster(){
     int whoFightsFirst = 0;
     int heroNewHealth = 0;
     int monsterNewHealth = 0;
     int monsterExp = 0;
     int currentLevel = 0;
+    int heroAlive = 1;
     String playerOrMonsterFirst = null;
     currentLevel = player.getLevel();
     whoFightsFirst = random.nextInt(100);
@@ -305,6 +306,9 @@ public void guiEngageMonster(){
         if (whoFightsFirst <= 50){
             int heroAttack = player.getAttack();
             int monsterTotalAttack = monster.getAttack() - player.getDefence();
+            if (monsterTotalAttack < 0){
+                monsterTotalAttack = 0;
+            }
             monsterNewHealth = monster.getHealth() - heroAttack;
             monster.setNewHealth(monsterNewHealth);
             if (monster.getHealth() <= 0){
@@ -315,25 +319,27 @@ public void guiEngageMonster(){
                 if (currentLevel > player.getLevel()){
                     gameController.playerLevel(player.getLevel());
                 }
-                // itemDrop();
                 break;
             }
             heroNewHealth = player.getHealth() - monsterTotalAttack;
             player.setNewHealth(heroNewHealth);
             if (player.getHealth() <= 0)
             {
-                System.out.println("you died!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                // gameController.herosDeath();
+                heroAlive = 0;
+                break;
             }
         }else if (whoFightsFirst >= 50){
             int heroAttack = player.getAttack();
             int monsterTotalAttack = monster.getAttack() - player.getDefence();
+            if (monsterTotalAttack < 0){
+                monsterTotalAttack = 0;
+            }
             heroNewHealth = player.getHealth() - monsterTotalAttack;
             player.setNewHealth(heroNewHealth);
             if (player.getHealth() <= 0)
             {
-                System.out.println("you died!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                // gameController.herosDeath();
+                heroAlive = 0;
+                break;
             }
             monsterNewHealth = monster.getHealth() - heroAttack;
             monster.setNewHealth(monsterNewHealth);
@@ -345,11 +351,11 @@ public void guiEngageMonster(){
                 if (currentLevel > player.getLevel()){ // might not be working
                     gameController.playerLevel(player.getLevel());
                 }
-                // itemDrop();
                 break;
             }
         }
     }
+    return heroAlive;
 }
 
 public void guiItemDrop(char map[][], Hero player){
@@ -543,6 +549,9 @@ public void WantItem(String itemName, String typeOfItem, char map[][], Hero play
             if (whoFightsFirst <= 50){
                 int heroAttack = player.getAttack();
                 int monsterTotalAttack = monster.getAttack() - player.getDefence();
+                if (monsterTotalAttack < 0){
+                    monsterTotalAttack = 0;
+                }
                 monsterNewHealth = monster.getHealth() - heroAttack;
                 monster.setNewHealth(monsterNewHealth);
                 if (monster.getHealth() <= 0){
@@ -562,6 +571,9 @@ public void WantItem(String itemName, String typeOfItem, char map[][], Hero play
             }else if (whoFightsFirst >= 50){
                 int heroAttack = player.getAttack();
                 int monsterTotalAttack = monster.getAttack() - player.getDefence();
+                if (monsterTotalAttack < 0){
+                    monsterTotalAttack = 0;
+                }
                 heroNewHealth = player.getHealth() - monsterTotalAttack;
                 player.setNewHealth(heroNewHealth);
                 if (player.getHealth() <= 0)

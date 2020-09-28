@@ -48,6 +48,7 @@ public class Gui_Interface extends javax.swing.JFrame implements ActionListener{
     private JFrame frame11 = new JFrame();
     private JFrame frame12 = new JFrame();
     private JFrame frame13 = new JFrame();
+    private JFrame frame14 = new JFrame();
     public Gui_Interface(GameController gameController){
 
         this.gameController = gameController;
@@ -381,13 +382,13 @@ public class Gui_Interface extends javax.swing.JFrame implements ActionListener{
         frame6.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame6.setTitle("Swingy");
         frame6.pack();
-        frame6.setVisible(true);
+        frame6.setVisible(false);
         }
         
         
         public void monsterGoingToFight(String monsterToFight){
             JPanel panel = new JPanel();
-            JButton okay = new JButton("okay");
+            // JButton okay = new JButton("okay");
             panel.setBorder(BorderFactory.createEmptyBorder(150, 150, 150, 150));
             panel.setLayout(new GridLayout(0, 1));
             Object[] options = {"OK"};
@@ -403,6 +404,27 @@ public class Gui_Interface extends javax.swing.JFrame implements ActionListener{
         frame7.setTitle("Swingy");
         frame7.pack();
         frame7.setVisible(false);
+    }
+
+    public void guiHerosDeathMessage(){
+        JPanel panel = new JPanel();
+        JButton okay = new JButton("okay");
+        JLabel deadMessage = new JLabel("You have Died, may you rest in peace");
+        panel.setBorder(BorderFactory.createEmptyBorder(150, 150, 150, 150));
+        panel.setLayout(new GridLayout(0, 1));
+        panel.add(deadMessage);
+        panel.add(okay);
+        okay.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+    frame14.add(panel, BorderLayout.CENTER);
+    frame14.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame14.setTitle("Swingy");
+    frame14.pack();
+    frame14.setVisible(true);
     }
 
     public void monstDeafeatedMessage(String monsterDeath){
@@ -428,17 +450,25 @@ public class Gui_Interface extends javax.swing.JFrame implements ActionListener{
     public void amountOfExpGiven(int monsterExp){
         JPanel panel = new JPanel();
         JButton okay = new JButton("okay");
-        JLabel monsterXp = new JLabel("You have earned "+monsterExp+" Exp");
+        // JLabel monsterXp = new JLabel("You have earned "+monsterExp+" Exp");
         panel.setBorder(BorderFactory.createEmptyBorder(150, 150, 150, 150));
         panel.setLayout(new GridLayout(0, 1));
-        panel.add(monsterXp);
-        panel.add(okay);
-        okay.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                frame9.dispose();
-            }
-        });
+        Object[] options = {"OK"};
+        int n = JOptionPane.showOptionDialog(frame,
+                       "You have earned "+monsterExp+" Exp","Title",
+                       JOptionPane.PLAIN_MESSAGE,
+                       JOptionPane.QUESTION_MESSAGE,
+                       null,
+                       options,
+                       options[0]);
+        // panel.add(monsterXp);
+        // panel.add(okay);
+        // okay.addActionListener(new ActionListener() {
+        //     @Override
+        //     public void actionPerformed(ActionEvent e) {
+        //         frame9.dispose();
+        //     }
+        // });
 
         frame9.add(panel, BorderLayout.CENTER);
         frame9.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -471,21 +501,8 @@ public class Gui_Interface extends javax.swing.JFrame implements ActionListener{
     // private JLabel itemN = new JLabel("Do you want to equip item yes or no?");
     public void guiItemDropName(String itemName, String typeOfItem, char map[][], Hero player){
         JPanel panel = new JPanel();
-        // JButton yes = new JButton("yes");
-        // JButton no = new JButton("no");
-        // itemN.setText("Do you want to equip item yes or no?"+itemName);
-        // JLabel itemN = new JLabel("Do you want to equip item yes or no?"+itemName);
-        // System.out.println("inside item drop");
-        // System.out.println(itemName);
-        // System.out.println(typeOfItem);
-        // gameController.yesItemDrop(itemName, typeOfItem, map, player);
-        // closeJfram3();
-        // frame11.dispose();
         panel.setBorder(BorderFactory.createEmptyBorder(150, 150, 150, 150));
         panel.setLayout(new GridLayout(0, 1));
-        // panel.add(itemN);
-        // panel.add(yes);
-        // panel.add(no);
         if (JOptionPane.showConfirmDialog(null, "Do you want to equip item yes or no?"+itemName, "WARNING",
         JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                 // yes option
@@ -493,7 +510,7 @@ public class Gui_Interface extends javax.swing.JFrame implements ActionListener{
                 gameController.yesItemDrop(itemName, typeOfItem, map, player);
         } else {
             frame11.dispose();
-            gameController.yesItemDrop(itemName, typeOfItem, map, player);
+            gameController.noItemDrop();
                 // no option
         }
         frame11.add(panel, BorderLayout.CENTER);

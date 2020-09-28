@@ -117,10 +117,14 @@ public class GameController{
 
     public void fighting(String command, int[] location, char map[][], String userInput, Hero player){
         try {
+                int death = 0;
                 int random = 0;
                 random  = game.getRandomRoll(3);
-                game.guiEngageMonster();
-                if (random == 0){
+                death = game.guiEngageMonster();
+                if (death == 0){
+                    gui.guiHerosDeathMessage();
+                }
+                else if (random == 0){
                     game.guiItemDrop(map, player);
                 }else if (random == 1){
                     game.guiItemDrop(map, player);
@@ -138,10 +142,14 @@ public class GameController{
 
     public void running(String command, int[] location, char map[][], String userInput, Hero player){
         try {
+            int death = 0;
             int random = 0;
             random = game.getRandomRoll(100);
             if (random <= 50){
-                game.guiEngageMonster();
+                death = game.guiEngageMonster();
+                if (death == 0){
+                    gui.guiHerosDeathMessage();
+                }
                 random = game.getRandomRoll(3);
                 if (random == 0){
                     game.guiItemDrop(map, player);
@@ -190,9 +198,8 @@ public class GameController{
 
     public static void guiCreateNewMap(char[][] map, int mapsize, Hero player){
         System.out.println("you won!!");
-        gui.closeJfram3();
-        gui.closeJfram4();
         game.saveGameFile(map, mapsize, player);
+        gui.closeJfram3();
         gui.gameWon();
     }
     
@@ -206,6 +213,10 @@ public class GameController{
 
     public static void guicreateLoadedMapSilent(int[] playerLocation){
         game.guiLoadedPlayerMapSilent(playerLocation);
+    }
+
+    public void guiHerosDeath(){
+        gui.guiHerosDeathMessage();
     }
 
     public static void createNewMap(){
