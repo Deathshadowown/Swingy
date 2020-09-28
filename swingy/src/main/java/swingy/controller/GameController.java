@@ -28,7 +28,6 @@ public class GameController{
             console = new Console_Interface(this);
         }
             else if (interfaces == 2){
-                System.out.println("not implemented");
                 gui = new Gui_Interface(this);
             }
         if (interfaces == 1){
@@ -71,10 +70,10 @@ public class GameController{
                 // guiCharacterCreate();
                 // createMap();
             }else if (mainConsole == loadGame){
-        //         // int[] playerLocation;
-        //         // System.out.println("Will loadGame");
-        //         // playerLocation = game.loadingGame();
-        //         // createLoadedMap(playerLocation);
+                int[] playerLocation;
+                System.out.println("Will loadGame");
+                playerLocation = game.loadingGame();
+                guicreateLoadedMap(playerLocation);
             }
         }        
         } catch (Exception e) {
@@ -106,16 +105,89 @@ public class GameController{
             // console.printMap(map);
             // command = console.displayCommand();
             // gui.closeJfram3();
-            gui.guiStartingGame(player, map);
+            int count = 0;
+            gui.guiStartingGame(player, map, count);
             // game.commandWhereToMove(command, map);
         // }
     }
-    public void guiStartGameWithOutMapSize(char[][] map, Hero player){
-        gui.guiStartingGame(player, map);
+
+    public void guiStartGameWithOutMapSize(char[][] map, Hero player, int count){
+        // System.out.println(count);
+        gui.guiStartingGame(player, map, count);
     }
 
-    public void startingCommandWhereToMove(String command, char[][] map){
-        game.guiCommandWhereToMove(command, map);
+    public void startingCommandWhereToMove(String command, char[][] map, int count){
+        game.guiCommandWhereToMove(command, map, count);
+    }
+
+    public void fightingOrRunning(String command, int[] location, char map[][], String userInput, Hero player){
+        gui.closeJfram3();
+        gui.runOrFight(command, location, map, userInput, player);
+    }
+
+    public void fighting(String command, int[] location, char map[][], String userInput, Hero player){
+        try {
+                int random = 0;
+                random  = game.getRandomRoll(3);
+                game.guiEngageMonster();
+                if (random == 0){
+                    game.guiItemDrop();
+                }else if (random == 1){
+                    game.guiItemDrop();
+                }else if (random == 2){
+                    game.guiItemDrop();
+                }else{
+                    guiStartGameWithOutMapSize(map, player, 0);
+                }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            game.guicreatingNewMap();
+        }catch (Exception e){
+            System.out.println("ERROR: contact support");
+        }
+    }
+
+    public void running(String command, int[] location, char map[][], String userInput, Hero player){
+        try {
+            int random = 0;
+            random = game.getRandomRoll(100);
+            if (random < 50){
+                game.guiEngageMonster();
+                random = game.getRandomRoll(3);
+                if (random == 0){
+                    game.guiItemDrop();
+                }else if (random == 1){
+                    game.guiItemDrop();
+                }else if (random == 2){
+                    game.guiItemDrop();
+                }else{
+                    guiStartGameWithOutMapSize(map, player, 0);
+                }
+            }else if (random > 50){
+                gui.gotAway();
+                guiStartGameWithOutMapSize(map, player, 1);
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            game.guicreatingNewMap();
+        }catch (Exception e){
+            System.out.println("ERROR: contact support");
+        }
+    }
+
+    public void noItemDrop(){
+        gui.closeJfram3();
+        game.dontWantItem();
+    }
+
+    public void yesItemDrop(String itemName, String typeOfItem){
+        game.WantItem(itemName, typeOfItem);
+    }
+
+    public void guiItemDrops(String itemName, String typeOfItem){
+        gui.guiItemDropName(itemName, typeOfItem);
+    }
+
+    public void whoFightsFirstone(String playerOrMonsterFirst){
+        gui.whoAttacksFirst(playerOrMonsterFirst);
     }
 
     public static void guiCreateMap(){
@@ -129,10 +201,19 @@ public class GameController{
     public static void guiCreateNewMap(){
         System.out.println("you won!!");
         gui.closeJfram3();
+        gui.closeJfram4();
     }
     
     public static void createLoadedMap(int[] playerLocation){
         game.LoadedPlayerMap(playerLocation);
+    }
+
+    public static void guicreateLoadedMap(int[] playerLocation){
+        game.guiLoadedPlayerMap(playerLocation);
+    }
+
+    public static void guicreateLoadedMapSilent(int[] playerLocation){
+        game.guiLoadedPlayerMapSilent(playerLocation);
     }
 
     public static void createNewMap(){
@@ -146,6 +227,7 @@ public class GameController{
             game.createCharacter(heroName, charClass);
             guiCreateMap();
     }
+
     public void characterCreate(){
         String heroName = null;
         String charClass = null;
@@ -169,33 +251,34 @@ public class GameController{
         return(command);
     }
 
-    public void runOrFightInput(String command, int count){
-        if (count == 0){
-            gui.closeJfram3();
-            gui.runOrFight(command);
-        }
-        if (count == 1)
-        {
-            System.out.println("got fight");
-            // return "fight";
-        }
-        if (count == 2)
-        {
-            System.out.println("got run");
-            // return "run";
-        }
-    }
-    public void getInputRunOrFight(String command,String fightorRun){
-        int count = 0;
-        if (fightorRun.toLowerCase().equals("fight")){
-            count = 1;
-            runOrFightInput(command, count);
-        }
-        else if (fightorRun.toLowerCase().equals("run")){
-            count = 2;
-            runOrFightInput(command, count);
-        }
-    }
+    // public void runOrFightInput(String command, int count){
+    //     if (count == 0){
+    //         gui.closeJfram3();
+    //         gui.runOrFight(command);
+    //     }
+    //     if (count == 1)
+    //     {
+    //         System.out.println("got fight");
+    //         // return "fight";
+    //     }
+    //     if (count == 2)
+    //     {
+    //         System.out.println("got run");
+    //         // return "run";
+    //     }
+    // }
+    // public void getInputRunOrFight(String command,String fightorRun){
+    //     int count = 0;
+    //     if (fightorRun.toLowerCase().equals("fight")){
+    //         count = 1;
+    //         runOrFightInput(command, count);
+    //     }
+    //     else if (fightorRun.toLowerCase().equals("run")){
+    //         count = 2;
+    //         runOrFightInput(command, count);
+    //     }
+    // }
+
     public void failedToRun(){
         console.displayFailedRunMessage();
     }
@@ -208,12 +291,29 @@ public class GameController{
     public void moveCommandDisplay(String command){
         console.DisplayMovedMessage(command);
     }
+
+    public void guiMonsterEngageing(String monsterToFight, int deadOrAlive){
+        if (deadOrAlive == 1)
+        gui.monsterGoingToFight(monsterToFight);
+        else if (deadOrAlive == 0)
+        gui.monstDeafeatedMessage(monsterToFight);
+    }
+
     public void monsterEngageing(String monsterToFight, int deadOrAlive){
         if (deadOrAlive == 1)
         console.monsterGoingToFight(monsterToFight);
         else if (deadOrAlive == 0)
         console.monstDeafeatedMessage(monsterToFight);
     }
+
+    public void amountOfExp(int monsterExp){
+        gui.amountOfExpGiven(monsterExp);
+    }
+
+    public void playerLevel(int playerLevel){
+        gui.playerLevelUpMessage(playerLevel);
+    }
+
     public void escaped(){
         console.escapedMessage();
     }

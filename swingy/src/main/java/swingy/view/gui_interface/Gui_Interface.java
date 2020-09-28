@@ -23,6 +23,7 @@ import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.JOptionPane;
 import java.awt.*; 
 import java.awt.event.*;
 
@@ -38,6 +39,14 @@ public class Gui_Interface extends javax.swing.JFrame implements ActionListener{
     private JFrame frame2 = new JFrame();
     private JFrame frame3 = new JFrame();
     private JFrame frame4 = new JFrame();
+    private JFrame frame5 = new JFrame();
+    private JFrame frame6 = new JFrame();
+    private JFrame frame7 = new JFrame();
+    private JFrame frame8 = new JFrame();
+    private JFrame frame9 = new JFrame();
+    private JFrame frame10 = new JFrame();
+    private JFrame frame11 = new JFrame();
+    private JFrame frame12 = new JFrame();
     public Gui_Interface(GameController gameController){
 
         this.gameController = gameController;
@@ -75,7 +84,6 @@ public class Gui_Interface extends javax.swing.JFrame implements ActionListener{
         panel.add(label);
         panel.add(newGame);
         panel.add(loadGame);
-        panel.add(labelc);
 
         frame.add(panel, BorderLayout.CENTER);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -146,15 +154,10 @@ public class Gui_Interface extends javax.swing.JFrame implements ActionListener{
         frame2.setVisible(true);
     }
 
-    public void guiStartingGame(Hero player, char map[][]){
+    public void heroStates(Hero player){
         JPanel panel = new JPanel();
-        JButton okay = new JButton("Okay");
-        JButton north = new JButton("north");
-        JButton south = new JButton("south");
-        JButton east = new JButton("east");
-        JButton west = new JButton("west");
-        JButton save = new JButton("save");
-        JButton quit = new JButton("quit");
+        JButton okay = new JButton("okay");
+        JLabel randomMessages = new JLabel("Please press Okay when you done fighting or running to see what happend");
         JLabel playerStates = new JLabel("Player Stats.");
         JLabel playerName = new JLabel("Hero Name: "+player.getHeroName());
         JLabel playerClass = new JLabel("Heros Class: "+player.getCharClass());
@@ -169,42 +172,9 @@ public class Gui_Interface extends javax.swing.JFrame implements ActionListener{
         JLabel playerCurrentWeaponDefence = new JLabel("Current Armour stats: "+player.getCurrentArmourDefence()+" Defence");
         JLabel playerCurrentHelm = new JLabel("Current Helm: "+player.getCurrentHelm());
         JLabel playerCurrentHelmHealth = new JLabel("Current Helm stats: "+player.getCurrentHelmHealth()+" Health");
-        north.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String sNorth = "north";
-                    gameController.startingCommandWhereToMove(sNorth, map);
-                    // frame3.setVisible(false);
-                    // frame3.setVisible(true);
-            }
-        });
-        south.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String sSouth = "south";
-                gameController.startingCommandWhereToMove(sSouth, map);
-                // frame3.setVisible(false);
-                // frame3.setVisible(true)
-            }
-        });
-        east.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String sEast = "east";
-                gameController.startingCommandWhereToMove(sEast, map);
-                // frame.setVisible(false);
-            }
-        });
-        west.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String sWest = "west";
-                gameController.startingCommandWhereToMove(sWest, map);
-                // frame.setVisible(false);
-            }
-        });
         panel.setBorder(BorderFactory.createEmptyBorder(150, 150, 150, 150));
         panel.setLayout(new GridLayout(0, 1));
+        panel.add(randomMessages);
         panel.add(playerStates);
         panel.add(playerName);
         panel.add(playerClass);
@@ -219,14 +189,119 @@ public class Gui_Interface extends javax.swing.JFrame implements ActionListener{
         panel.add(playerCurrentWeaponDefence);
         panel.add(playerCurrentHelm);
         panel.add(playerCurrentHelmHealth);
-        // panel.add(okay);
+        panel.add(okay);
+        okay.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame12.dispose();
+            }
+        });
+
+        frame12.add(panel, BorderLayout.CENTER);
+        frame12.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame12.setTitle("Swingy");
+        frame12.pack();
+        frame12.setVisible(true);
+    }
+    public void guiStartingGame(Hero player, char map[][], int count){
+        JPanel panel = new JPanel();
+        JButton north = new JButton("north");
+        JButton south = new JButton("south");
+        JButton east = new JButton("east");
+        JButton west = new JButton("west");
+        JButton fight = new JButton("fight");
+        JButton run = new JButton("run");
+        JButton save = new JButton("save");
+        JButton quit = new JButton("quit");
+        // heroStates(player);
+        
+        // JLabel randomMessages = new JLabel("Please press Okay when you done fighting or running to see what happend");
+        JLabel playerStates = new JLabel("Player Stats.");
+        JLabel playerName = new JLabel("Hero Name: "+player.getHeroName());
+        JLabel playerClass = new JLabel("Heros Class: "+player.getCharClass());
+        JLabel playerExp = new JLabel("exp: "+player.getXp());
+        JLabel playerLevel = new JLabel("Current level: "+player.getLevel());
+        JLabel playerHealth = new JLabel("Current Health: "+player.getHealth());
+        JLabel playerAttack = new JLabel("Current Attack: "+player.getAttack());
+        JLabel playerDefence = new JLabel("Current Defence: "+player.getDefence());
+        JLabel playerCurrentWeapon = new JLabel("Current Weapon: "+player.getCurrentWeapon());
+        JLabel playerCurrentWeaponAttack = new JLabel("Current Weapon stats: "+player.getCurrentWeaponAttack()+" Attack");
+        JLabel playerCurrentArmour = new JLabel("Current Armour: "+player.getCurrentArmour());
+        JLabel playerCurrentWeaponDefence = new JLabel("Current Armour stats: "+player.getCurrentArmourDefence()+" Defence");
+        JLabel playerCurrentHelm = new JLabel("Current Helm: "+player.getCurrentHelm());
+        JLabel playerCurrentHelmHealth = new JLabel("Current Helm stats: "+player.getCurrentHelmHealth()+" Health");
+        panel.setBorder(BorderFactory.createEmptyBorder(150, 150, 150, 150));
+        panel.setLayout(new GridLayout(0, 1));
+        // panel.add(randomMessages);
+        panel.add(playerStates);
+        panel.add(playerName);
+        panel.add(playerClass);
+        panel.add(playerExp);
+        panel.add(playerLevel);
+        panel.add(playerHealth);
+        panel.add(playerAttack);
+        panel.add(playerDefence);
+        panel.add(playerCurrentWeapon);
+        panel.add(playerCurrentWeaponAttack);
+        panel.add(playerCurrentArmour);
+        panel.add(playerCurrentWeaponDefence);
+        panel.add(playerCurrentHelm);
+        panel.add(playerCurrentHelmHealth);
         panel.add(north);
         panel.add(south);
         panel.add(east);
         panel.add(west);
         panel.add(save);
         panel.add(quit);
-
+            north.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    String sNorth = "north";
+                    gameController.startingCommandWhereToMove(sNorth, map, count);
+                    // frame3.setVisible(false);
+                    // frame3.setVisible(true);
+                }
+            });
+            south.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    String sSouth = "south";
+                    gameController.startingCommandWhereToMove(sSouth, map, count);
+                    // frame3.setVisible(false);
+                    // frame3.setVisible(true)
+                }
+            });
+            east.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    String sEast = "east";
+                    gameController.startingCommandWhereToMove(sEast, map, count);
+                    // frame.setVisible(false);
+                }
+            });
+            west.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    String sWest = "west";
+                    gameController.startingCommandWhereToMove(sWest, map, count);
+                    // frame.setVisible(false);
+                }
+            });
+            save.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    String saveGame = "save";
+                    gameController.startingCommandWhereToMove(saveGame, map, count);
+                    // frame.setVisible(false);
+                }
+            });
+            quit.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    System.exit(0);
+                }
+            });
+        System.out.println(count+" this is the count");
         frame3.add(panel, BorderLayout.CENTER);
         frame3.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame3.setTitle("Swingy");
@@ -236,8 +311,175 @@ public class Gui_Interface extends javax.swing.JFrame implements ActionListener{
     public void closeJfram3(){
         frame3.dispose();
     }
+    public void closeJfram4(){
+        frame4.dispose();
+    }
 
-    public void runOrFight(String command){
+    public void gotAway(){
+        JPanel panel = new JPanel();
+        JButton okay = new JButton("okay");
+        JLabel youGotAway = new JLabel("You got away!!");
+        panel.setBorder(BorderFactory.createEmptyBorder(150, 150, 150, 150));
+        panel.setLayout(new GridLayout(0, 1));
+        panel.add(youGotAway);
+        panel.add(okay);
+        okay.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame5.dispose();
+            }
+        });
+    }
+
+        public void whoAttacksFirst(String playerOrMonsterFirst){
+            JPanel panel = new JPanel();
+            JButton okay = new JButton("okay");
+            JLabel whoFirst = new JLabel("weee");
+            if (playerOrMonsterFirst.toLowerCase().equals("player")){
+                whoFirst.setText("hero got first attack");
+            }else if (playerOrMonsterFirst.toLowerCase().equals("monster")){
+                whoFirst.setText("monster got first attack");
+            }
+            panel.setBorder(BorderFactory.createEmptyBorder(150, 150, 150, 150));
+            panel.setLayout(new GridLayout(0, 1));
+            panel.add(whoFirst);
+            panel.add(okay);
+            okay.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    frame6.dispose();
+                }
+            });
+
+        frame6.add(panel, BorderLayout.CENTER);
+        frame6.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame6.setTitle("Swingy");
+        frame6.pack();
+        frame6.setVisible(true);
+        }
+        
+        
+        public void monsterGoingToFight(String monsterToFight){
+            JPanel panel = new JPanel();
+            JButton okay = new JButton("okay");
+            JLabel monsterToF = new JLabel("You going to fight: "+monsterToFight);
+            panel.setBorder(BorderFactory.createEmptyBorder(150, 150, 150, 150));
+            panel.setLayout(new GridLayout(0, 1));
+            panel.add(monsterToF);
+            panel.add(okay);
+            okay.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    frame7.dispose();
+                }
+            });
+
+        frame7.add(panel, BorderLayout.CENTER);
+        frame7.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame7.setTitle("Swingy");
+        frame7.pack();
+        frame7.setVisible(true);
+    }
+
+    public void monstDeafeatedMessage(String monsterDeath){
+        JPanel panel = new JPanel();
+        JButton okay = new JButton("okay");
+        JLabel monsterD = new JLabel("You have Deafeated "+monsterDeath);
+        panel.setBorder(BorderFactory.createEmptyBorder(150, 150, 150, 150));
+        panel.setLayout(new GridLayout(0, 1));
+        panel.add(monsterD);
+        panel.add(okay);
+        okay.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame8.dispose();
+            }
+        });
+
+        frame8.add(panel, BorderLayout.CENTER);
+        frame8.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame8.setTitle("Swingy");
+        frame8.pack();
+        frame8.setVisible(true);
+    }
+
+    public void amountOfExpGiven(int monsterExp){
+        JPanel panel = new JPanel();
+        JButton okay = new JButton("okay");
+        JLabel monsterXp = new JLabel("You have earned "+monsterExp+" Exp");
+        panel.setBorder(BorderFactory.createEmptyBorder(150, 150, 150, 150));
+        panel.setLayout(new GridLayout(0, 1));
+        panel.add(monsterXp);
+        panel.add(okay);
+        okay.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame9.dispose();
+            }
+        });
+
+        frame9.add(panel, BorderLayout.CENTER);
+        frame9.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame9.setTitle("Swingy");
+        frame9.pack();
+        frame9.setVisible(true);
+    }
+
+    public void playerLevelUpMessage(int playerLevel){
+        JPanel panel = new JPanel();
+        JButton okay = new JButton("okay");
+        JLabel playerLvl = new JLabel("You have levelUp "+playerLevel);
+        panel.setBorder(BorderFactory.createEmptyBorder(150, 150, 150, 150));
+        panel.setLayout(new GridLayout(0, 1));
+        panel.add(playerLvl);
+        panel.add(okay);
+        okay.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame10.dispose();
+            }
+        });
+
+        frame10.add(panel, BorderLayout.CENTER);
+        frame10.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame10.setTitle("Swingy");
+        frame10.pack();
+        frame10.setVisible(true);
+    }
+
+    public void guiItemDropName(String ItemName, String typeOfItem){
+        JPanel panel = new JPanel();
+        JButton yes = new JButton("yes");
+        JButton no = new JButton("no");
+        JLabel itemN = new JLabel("Do you want to equip item yes or no?"+ItemName);
+        panel.setBorder(BorderFactory.createEmptyBorder(150, 150, 150, 150));
+        panel.setLayout(new GridLayout(0, 1));
+        panel.add(itemN);
+        panel.add(yes);
+        panel.add(no);
+        yes.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                gameController.yesItemDrop(ItemName, typeOfItem);
+                frame11.dispose();
+            }
+        });
+        no.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                gameController.noItemDrop();
+                frame11.dispose();
+            }
+        });
+
+        frame11.add(panel, BorderLayout.CENTER);
+        frame11.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame11.setTitle("Swingy");
+        frame11.pack();
+        frame11.setVisible(true);
+    }
+
+    public void runOrFight(String command, int[] location, char map[][], String userInput, Hero player){
         JPanel panel = new JPanel();
         JButton fight = new JButton("Fight");
         JButton run = new JButton("Run");
@@ -246,14 +488,18 @@ public class Gui_Interface extends javax.swing.JFrame implements ActionListener{
             @Override
             public void actionPerformed(ActionEvent e) {
                 String fighting = "fight";
-               gameController.getInputRunOrFight(command, fighting);
+                frame4.dispose();
+                gameController.fighting(command, location, map, fighting, player);
             }
         });
         run.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String running = "run";
-                gameController.getInputRunOrFight(command, running);
+                frame4.dispose();
+                gameController.running(command, location, map, running, player);
+                // gameController.fightingOrRunning(running, 1);
+                // gameController.getInputRunOrFight(command, running);
             }
         });
         panel.setBorder(BorderFactory.createEmptyBorder(150, 150, 150, 150));

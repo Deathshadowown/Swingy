@@ -1,1 +1,1 @@
-wee,Assassin,Default,Default,Default,150,1,85,7,4,1000,2,4,
+weee,Knight,Default,Default,Bronze Armour,350,1,198,4,9,1000,1,4,
