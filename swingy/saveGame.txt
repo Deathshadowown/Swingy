@@ -1,1 +1,0 @@
-weee,Knight,Default,Default,Bronze Armour,350,1,198,4,9,1000,1,4,
