@@ -204,11 +204,9 @@ public class Gui_Interface extends javax.swing.JFrame implements ActionListener{
         JLabel playerCurrentWeaponDefence = new JLabel("Current Armour stats: "+player.getCurrentArmourDefence()+" Defence");
         JLabel playerCurrentHelm = new JLabel("Current Helm: "+player.getCurrentHelm());
         JLabel playerCurrentHelmHealth = new JLabel("Current Helm stats: "+player.getCurrentHelmHealth()+" Health");
-        // JTextArea newText = new JTextArea();
 
         panel.setBorder(BorderFactory.createEmptyBorder(150, 150, 150, 150));
         panel.setLayout(new GridLayout(0, 1));
-        // panel.add(newText);
         panel.add(randomMessages);
         panel.add(playerStates);
         panel.add(playerName);
@@ -238,7 +236,7 @@ public class Gui_Interface extends javax.swing.JFrame implements ActionListener{
         frame12.pack();
         frame12.setVisible(true);
     }
-    
+
     public void guiStartingGame(Hero player, char map[][], int count){
         JPanel panel = new JPanel();
         JButton north = new JButton("north");
@@ -267,7 +265,6 @@ public class Gui_Interface extends javax.swing.JFrame implements ActionListener{
         JLabel playerCurrentHelmHealth = new JLabel("Current Helm stats: "+player.getCurrentHelmHealth()+" Health");
         panel.setBorder(BorderFactory.createEmptyBorder(150, 150, 150, 150));
         panel.setLayout(new GridLayout(0, 1));
-        panel.add(newText);
         panel.add(playerStates);
         panel.add(playerName);
         panel.add(playerClass);
