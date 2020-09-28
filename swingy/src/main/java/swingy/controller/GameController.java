@@ -113,6 +113,7 @@ public class GameController{
 
     public void guiStartGameWithOutMapSize(char[][] map, Hero player, int count){
         // System.out.println(count);
+        // System.out.println("weee");
         gui.guiStartingGame(player, map, count);
     }
 
