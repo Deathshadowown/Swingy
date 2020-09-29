@@ -236,9 +236,12 @@ public class Gui_Interface extends javax.swing.JFrame implements ActionListener{
         frame12.pack();
         frame12.setVisible(true);
     }
-
+    private JPanel panel = new JPanel();
     public void guiStartingGame(Hero player, char map[][], int count){
-        JPanel panel = new JPanel();
+        if (frame3.getContentPane() == panel){
+            frame3.remove(panel);
+        }
+        panel = new JPanel();
         JButton north = new JButton("north");
         JButton south = new JButton("south");
         JButton east = new JButton("east");
@@ -341,11 +344,11 @@ public class Gui_Interface extends javax.swing.JFrame implements ActionListener{
                     }
             });
 
-        frame3.add(panel, BorderLayout.CENTER);
+        frame3.setContentPane(panel);
         frame3.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame3.setTitle("Swingy4");
-        // frame3.revalidate();
-        // frame3.repaint();
+        frame3.revalidate();
+        frame3.repaint();
         frame3.pack();
         frame3.setVisible(true);
     }
