@@ -337,12 +337,12 @@ public class Gui_Interface extends javax.swing.JFrame implements ActionListener{
                     System.exit(0);
                 }
             });
-            okay.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    gameController.guiStartGameWithOutMapSize(map, player, 0);
-                    }
-            });
+            // okay.addActionListener(new ActionListener() {
+            //     @Override
+            //     public void actionPerformed(ActionEvent e) {
+            //         gameController.guiStartGameWithOutMapSize(map, player, 0);
+            //         }
+            // });
 
         frame3.setContentPane(panel);
         frame3.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
