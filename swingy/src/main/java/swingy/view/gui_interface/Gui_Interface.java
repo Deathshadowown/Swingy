@@ -250,7 +250,7 @@ public class Gui_Interface extends javax.swing.JFrame implements ActionListener{
         JButton run = new JButton("run");
         JButton save = new JButton("save");
         JButton quit = new JButton("quit");
-        JButton okay = new JButton("okay");
+        // JButton okay = new JButton("okay");
         JLabel randomMessages = new JLabel("Press okay to Refresh states");
         JLabel playerStates = new JLabel("Player Stats.");
         JLabel playerName = new JLabel("Hero Name: "+player.getHeroName());
@@ -288,7 +288,7 @@ public class Gui_Interface extends javax.swing.JFrame implements ActionListener{
         panel.add(west);
         panel.add(save);
         panel.add(quit);
-        panel.add(okay);
+        // panel.add(okay);
             north.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {

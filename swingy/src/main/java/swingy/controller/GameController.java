@@ -112,7 +112,7 @@ public class GameController{
         try {
                 int death = 0;
                 int random = 0;
-                random  = game.getRandomRoll(3);
+                random  = game.getRandomRoll(6);
                 death = game.guiEngageMonster();
                 if (death == 0){
                     gui.guiHerosDeathMessage();
@@ -143,7 +143,7 @@ public class GameController{
                 if (death == 0){
                     gui.guiHerosDeathMessage();
                 }
-                random = game.getRandomRoll(3);
+                random = game.getRandomRoll(6);
                 if (random == 0){
                     game.guiItemDrop(map, player);
                 }else if (random == 1){
